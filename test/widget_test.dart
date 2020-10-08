@@ -1,3 +1,13 @@
+/*
+ * This software and associated documentation files are
+ *
+ * Copyright © 2020-2020 Koninklijke Philips N.V.
+ *
+ * and is made available for use within Philips and/or within Philips products.
+ *
+ * All Rights Reserved
+ */
+
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
