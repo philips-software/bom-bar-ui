@@ -9,12 +9,14 @@
  */
 
 import 'package:bom_bar_ui/screens/projects/projects_screen.dart';
+import 'package:bom_bar_ui/services/bom_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
 
-// const platform = null;
-const platform = TargetPlatform.linux;
+const platform = null;
+// const platform = TargetPlatform.linux;
 // const platform = TargetPlatform.macOS;
 const darkMode = false;
 
@@ -42,11 +44,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: materialTheme,
-      child: PlatformProvider(
+      child: Provider(
+        create: (_)=>BomService(),
+        child: initUI(),
+      ),
+    );
+  }
+
+  PlatformProvider initUI() {
+    return PlatformProvider(
         initialPlatform: platform,
         builder: (context) => PlatformApp(
           title: 'BOM-bar',
-          home: ProjectsScreen(),
           material: (_, __) => MaterialAppData(
             themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
             theme: materialTheme,
@@ -55,8 +64,8 @@ class MyApp extends StatelessWidget {
           cupertino: (_, __) => CupertinoAppData(
             theme: cupertinoTheme,
           ),
+          home: ProjectsScreen(),
         ),
-      ),
-    );
+      );
   }
 }

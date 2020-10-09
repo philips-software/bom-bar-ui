@@ -1,0 +1,40 @@
+/*
+ * This software and associated documentation files are
+ *
+ * Copyright © 2020-2020 Koninklijke Philips N.V.
+ *
+ * and is made available for use within Philips and/or within Philips products.
+ *
+ * All Rights Reserved
+ */
+
+import 'dart:async';
+
+Stream<T> cached<T extends Object>(Stream<T> source) {
+  var listeners = <StreamController>{};
+  T last;
+  bool done = false;
+  source.listen((event) {
+    last = event;
+    for (var listener in [...listeners]) listener.add(event);
+  }, onError: (Object e, StackTrace s) {
+    for (var listener in [...listeners]) listener.addError(e, s);
+  }, onDone: () {
+    done = true;
+    last = null;
+    for (var listener in listeners) listener.close();
+  });
+
+  return Stream.multi((StreamController c) {
+    if (done) {
+      c.close();
+    } else {
+      var lastEvent = last;
+      if (lastEvent != null) c.add(lastEvent);
+      listeners.add(c);
+    }
+    c.onCancel = () {
+      listeners.remove(c);
+    };
+  });
+}

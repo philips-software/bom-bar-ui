@@ -11,8 +11,14 @@
 import 'package:flutter/foundation.dart';
 
 class Package {
+  Package(
+      {@required this.id,
+      @required this.title,
+      @required this.version,
+      this.dependencies = const []});
+
   final String id;
   final String title;
-
-  Package(this.id, {@required this.title});
+  final version;
+  final List<Package> dependencies;
 }
