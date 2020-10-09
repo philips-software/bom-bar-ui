@@ -23,6 +23,8 @@ Package toPackage(Map<String, dynamic> map) => Package(
       id: map['id'],
       title: map['title'],
       version: map['version'],
+      license: map['license'],
+      relation: map['relation'],
       dependencies: toPackageList(map['dependencies']),
     );
 

@@ -15,10 +15,14 @@ class Package {
       {@required this.id,
       @required this.title,
       @required this.version,
+      @required this.license,
+      this.relation,
       this.dependencies = const []});
 
   final String id;
   final String title;
-  final version;
+  final String version;
+  final String license;
+  final String relation;
   final List<Package> dependencies;
 }
