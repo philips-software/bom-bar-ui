@@ -12,16 +12,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class TreeView<T> extends StatefulWidget {
-  TreeView(
-      {Key key,
-      this.leading,
-      @required this.data,
-      @required this.children,
-      this.builder,
-      this.isRoot = true})
-      : super(key: key ?? ObjectKey(data));
+  TreeView({
+    Key key,
+    this.leading,
+    @required this.data,
+    @required this.children,
+    this.builder,
+  }) : super(key: key ?? ObjectKey(data));
 
-  final bool isRoot;
   final T data;
   final List<T> Function(T data) children;
   final Widget Function(BuildContext context, T data) builder;
@@ -35,11 +33,7 @@ class _TreeViewState<T> extends State<TreeView<T>> {
   bool _expanded = false;
 
   @override
-  Widget build(BuildContext context) => widget.isRoot
-      ? SingleChildScrollView(child: _build(context))
-      : _build(context);
-
-  Widget _build(BuildContext context) => Column(
+  Widget build(BuildContext context) => Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
@@ -52,12 +46,12 @@ class _TreeViewState<T> extends State<TreeView<T>> {
                   children: widget
                       .children(widget.data)
                       .map((data) => TreeView<T>(
-                          key: ObjectKey(data),
-                          data: data,
-                          leading: widget.leading,
-                          children: widget.children,
-                          builder: widget.builder,
-                          isRoot: false))
+                            key: ObjectKey(data),
+                            data: data,
+                            leading: widget.leading,
+                            children: widget.children,
+                            builder: widget.builder,
+                          ))
                       .toList(growable: false),
                 ))
         ],
@@ -77,7 +71,10 @@ class _TreeViewState<T> extends State<TreeView<T>> {
               constraints: BoxConstraints(minWidth: 50),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: widget.leading(context, widget.data),
+                child: GestureDetector(
+                  child: widget.leading(context, widget.data),
+                  onTap: _toggleExpand,
+                ),
               ),
             ),
           if (widget.builder != null)
@@ -89,12 +86,14 @@ class _TreeViewState<T> extends State<TreeView<T>> {
               icon: Icon(_expanded
                   ? Icons.keyboard_arrow_down
                   : Icons.keyboard_arrow_right),
-              onPressed: () {
-                setState(() => _expanded = !_expanded);
-              },
+              onPressed: _toggleExpand,
             )
         ],
       ),
     );
+  }
+
+  void _toggleExpand() {
+    setState(() => _expanded = !_expanded);
   }
 }

@@ -36,7 +36,7 @@ class ProjectsList extends StatelessWidget {
             leading: Icon(PlatformIcons(context).home),
             title: Text(project.title),
             onTap: () {
-              service.selectProject(project.id);
+              service.projectId = project.id;
               Navigator.push(
                   context,
                   platformPageRoute(

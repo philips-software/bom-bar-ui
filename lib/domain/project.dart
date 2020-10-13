@@ -10,12 +10,12 @@
 
 import 'package:flutter/foundation.dart';
 
-import 'package.dart';
+import 'dependency.dart';
 
 class Project {
   Project({@required this.id, @required this.title, this.packages = const []});
 
   final String id;
   String title;
-  final List<Package> packages;
+  final List<Dependency> packages;
 }

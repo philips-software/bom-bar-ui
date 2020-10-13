@@ -10,6 +10,7 @@
 
 import 'dart:developer';
 
+import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -18,22 +19,44 @@ import 'model_adapters.dart';
 
 class BomBarClient {
   final baseUrl = Uri.http(kIsWeb ? '' : 'localhost:8081', '/');
-  final _client = Dio();
+  final _dio = Dio();
 
   Future<List<Project>> getProjects() async {
-    log('GET all projects');
-    final response = await _client.get(baseUrl.resolve('projects').toString());
-    return toProjectList(response.data['results']);
+    var data = await _request(() {
+      log('GET all projects');
+      return _dio.get(baseUrl.resolve('projects').toString());
+    });
+    return toProjectList(data['results']);
   }
 
   Future<Project> getProject(String id) async {
-    try {
+    return toProject(await _request(() {
       log('GET project $id');
-      final response =
-      await _client.get(baseUrl.resolve('projects/$id').toString());
-      return toProject(response.data);
-    } catch (e,s) {
-      log(e.toString(),stackTrace: s);
+      return _dio.get(baseUrl.resolve('projects/$id').toString());
+    }));
+  }
+
+  Future<Dependency> getDependency(String projectId, String id) async {
+    return toDependency(await _request(() {
+      log('GET dependency $id');
+      return _dio.get(
+          baseUrl.resolve('projects/$projectId/dependencies/${Uri.encodeComponent(id)}').toString());
+    }));
+  }
+
+  Future<T> _request<T>(Future<Response<T>> Function() func) async {
+    try {
+      final response = await func();
+      switch (response.statusCode) {
+        case 200:
+        case 201:
+          return response.data;
+        default:
+          throw Exception(
+              'Server responded with ${response.statusCode}: ${response.statusMessage}');
+      }
+    } catch (e, s) {
+      log(e.toString(), stackTrace: s);
       throw e;
     }
   }

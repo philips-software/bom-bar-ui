@@ -23,7 +23,7 @@ class ProjectsScreen extends StatelessWidget {
 
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text('Projects'),
+        title: Text('All projects'),
       ),
       body: FutureBuilder(
         future: service.projects(),

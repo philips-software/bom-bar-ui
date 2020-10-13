@@ -7,26 +7,26 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/package.dart';
+import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'],
-      packages: toPackageList(map['packages']),
+      packages: toDependencyList(map['packages']),
     );
 
 List<Project> toProjectList(List<dynamic> list) =>
     list?.map((map) => toProject(map))?.toList(growable: false);
 
-Package toPackage(Map<String, dynamic> map) => Package(
+Dependency toDependency(Map<String, dynamic> map) => Dependency(
       id: map['id'],
       title: map['title'],
       version: map['version'],
       license: map['license'],
       relation: map['relation'],
-      dependencies: toPackageList(map['dependencies']),
+      dependencies: toDependencyList(map['dependencies']),
     );
 
-List<Package> toPackageList(List<dynamic> list) =>
-    list?.map((map) => toPackage(map))?.toList(growable: false);
+List<Dependency> toDependencyList(List<dynamic> list) =>
+    list?.map((map) => toDependency(map))?.toList(growable: false);

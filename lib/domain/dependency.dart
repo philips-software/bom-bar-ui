@@ -10,8 +10,8 @@
 
 import 'package:flutter/foundation.dart';
 
-class Package {
-  Package(
+class Dependency {
+  Dependency(
       {@required this.id,
       @required this.title,
       @required this.version,
@@ -24,5 +24,5 @@ class Package {
   final String version;
   final String license;
   final String relation;
-  final List<Package> dependencies;
+  final List<Dependency> dependencies;
 }
