@@ -8,13 +8,12 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/domain/project.dart';
 import 'package:bom_bar_ui/screens/dependency/dependency_screen.dart';
 import 'package:bom_bar_ui/screens/widgets/dependency_view.dart';
 import 'package:bom_bar_ui/screens/widgets/relation_widget.dart';
-import 'package:bom_bar_ui/screens/widgets/snapshot_widget.dart';
 import 'package:bom_bar_ui/screens/widgets/tree_view.dart';
-import 'package:bom_bar_ui/services/bom_service.dart';
+import 'package:bom_bar_ui/services/dependency_service.dart';
+import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -25,42 +24,39 @@ class ProjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<BomService>(context, listen: false);
-
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('Project'),
       ),
-      body: StreamBuilder(
-        stream: service.project,
-        builder: (context, AsyncSnapshot<Project> snapshot) =>
-            SnapshotWidget<Project>(
-          snapshot: snapshot,
-          builder: (context, project) => ListView(
-            children: project.packages
-                .map(
-                  (dependency) => TreeView(
-                    data: dependency,
-                    children: (d) => d.dependencies,
-                    leading: (_, d) => RelationWidget(
-                      relation: d.relation,
-                    ),
-                    builder: (_, dep) => DependencyView(
-                      dependency: dep,
-                      onTap: (d) {
-                        service.dependencyId = d.id;
-                        return Navigator.push(
-                          context,
-                          platformPageRoute(
-                              context: context,
-                              builder: (_) => DependencyScreen()));
-                      },
-                    ),
-                  ),
-                )
-                .toList(growable: false),
-          ),
-        ),
+      body: Consumer<ProjectService>(
+        builder: (context, service, child) => service.current == null
+            ? Center(child: Text('(No project selected)'))
+            : ListView(
+                children: service.current.dependencies
+                    .map(
+                      (dependency) => TreeView(
+                        data: dependency,
+                        children: (d) => d.dependencies,
+                        leading: (_, d) => RelationWidget(
+                          dependency: d,
+                        ),
+                        builder: (_, dep) => DependencyView(
+                          dependency: dep,
+                          onTap: (d) {
+                            Provider.of<DependencyService>(context,
+                                    listen: false)
+                                .id = d.id;
+                            return Navigator.push(
+                                context,
+                                platformPageRoute(
+                                    context: context,
+                                    builder: (_) => DependencyScreen()));
+                          },
+                        ),
+                      ),
+                    )
+                    .toList(growable: false),
+              ),
       ),
     );
   }

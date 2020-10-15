@@ -8,19 +8,28 @@
  * All Rights Reserved
  */
 
+import 'package:badges/badges.dart';
+import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class RelationWidget extends StatelessWidget {
-  RelationWidget({this.relation});
+  RelationWidget({this.dependency});
 
-  final String relation;
+  final Dependency dependency;
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: relation?.replaceAll('_', ' ') ?? 'Package',
-      child: Icon(_relationIcon[relation] ?? Icons.folder),
+      message: dependency.relation?.replaceAll('_', ' ') ?? 'Package',
+      child: Badge(
+        badgeContent: Text(
+          dependency.issueCount.toString(),
+          style: TextStyle(color: Colors.white),
+        ),
+        showBadge: dependency.issueCount > 0,
+        child: Icon(_relationIcon[dependency.relation] ?? Icons.folder),
+      ),
     );
   }
 }

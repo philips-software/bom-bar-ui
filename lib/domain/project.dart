@@ -13,9 +13,15 @@ import 'package:flutter/foundation.dart';
 import 'dependency.dart';
 
 class Project {
-  Project({@required this.id, @required this.title, this.packages = const []});
+  Project({
+    @required this.id,
+    @required this.title,
+    this.issueCount,
+    this.dependencies = const [],
+  });
 
   final String id;
   String title;
-  final List<Dependency> packages;
+  final int issueCount;
+  final List<Dependency> dependencies;
 }

@@ -26,12 +26,19 @@ class DependencyView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            dependency.title,
-            style: theme.headline6,
+          RichText(
+            text: TextSpan(children: [
+              TextSpan(
+                text: dependency.title,
+                style: theme.headline6,
+              ),
+              TextSpan(
+                text: ' - ${dependency.version}',
+                style: theme.subtitle1,
+              ),
+            ]),
           ),
-          Text('Version: ${dependency.version}', style: theme.subtitle1),
-          Text('License: ${dependency.license}', style: theme.subtitle2)
+          Text('License: ${dependency.license}', style: theme.subtitle2),
         ],
       ),
     );

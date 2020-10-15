@@ -8,9 +8,10 @@
  * All Rights Reserved
  */
 
+import 'package:badges/badges.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 import 'package:bom_bar_ui/screens/project/project_screen.dart';
-import 'package:bom_bar_ui/services/bom_service.dart';
+import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,7 +25,7 @@ class ProjectsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<BomService>(context, listen: false);
+    final service = Provider.of<ProjectService>(context, listen: false);
 
     return ListView.builder(
       itemCount: projects.length,
@@ -33,10 +34,17 @@ class ProjectsList extends StatelessWidget {
         return Material(
           type: MaterialType.transparency,
           child: ListTile(
-            leading: Icon(PlatformIcons(context).home),
+            leading: Badge(
+              badgeContent: Text(
+                project.issueCount.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              showBadge: project.issueCount > 0,
+              child: Icon(PlatformIcons(context).home),
+            ),
             title: Text(project.title),
             onTap: () {
-              service.projectId = project.id;
+              service.id = project.id;
               Navigator.push(
                   context,
                   platformPageRoute(

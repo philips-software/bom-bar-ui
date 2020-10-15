@@ -17,6 +17,7 @@ class Dependency {
       @required this.version,
       @required this.license,
       this.relation,
+      this.issueCount,
       this.dependencies = const []});
 
   final String id;
@@ -24,5 +25,6 @@ class Dependency {
   final String version;
   final String license;
   final String relation;
+  final int issueCount;
   final List<Dependency> dependencies;
 }

@@ -13,7 +13,8 @@ import 'package:bom_bar_ui/domain/project.dart';
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'],
-      packages: toDependencyList(map['packages']),
+      issueCount: map['issues'],
+      dependencies: toDependencyList(map['packages']),
     );
 
 List<Project> toProjectList(List<dynamic> list) =>
@@ -25,6 +26,7 @@ Dependency toDependency(Map<String, dynamic> map) => Dependency(
       version: map['version'],
       license: map['license'],
       relation: map['relation'],
+      issueCount: map['issues'],
       dependencies: toDependencyList(map['dependencies']),
     );
 

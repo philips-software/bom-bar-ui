@@ -9,14 +9,16 @@
  */
 
 import 'package:bom_bar_ui/screens/projects/projects_screen.dart';
-import 'package:bom_bar_ui/services/bom_service.dart';
+import 'package:bom_bar_ui/services/bombar_client.dart';
+import 'package:bom_bar_ui/services/dependency_service.dart';
+import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
-const platform = null;
-// const platform = TargetPlatform.linux;
+// const platform = null;
+const platform = TargetPlatform.linux;
 // const platform = TargetPlatform.macOS;
 const darkMode = false;
 
@@ -24,15 +26,24 @@ void main() {
   runApp(MyApp());
 }
 
+final _client = BomBarClient();
+final _projectService = ProjectService(
+  client: _client,
+);
+final _dependencyService = DependencyService(
+  projectService: _projectService,
+  client: _client,
+);
+
 class MyApp extends StatelessWidget {
-  final materialTheme = new ThemeData(
+  static final materialTheme = ThemeData(
     primarySwatch: Colors.purple,
   );
-  final materialDarkTheme = new ThemeData(
+  static final materialDarkTheme = ThemeData(
     brightness: Brightness.dark,
     primarySwatch: Colors.teal,
   );
-  final cupertinoTheme = new CupertinoThemeData(
+  static final cupertinoTheme = CupertinoThemeData(
     brightness: darkMode ? Brightness.dark : Brightness.light,
     primaryColor: CupertinoDynamicColor.withBrightness(
       color: Colors.purple,
@@ -42,10 +53,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: materialTheme,
-      child: Provider(
-        create: (_)=>BomService(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => _projectService),
+        ChangeNotifierProvider(create: (_) => _dependencyService),
+      ],
+      child: Theme(
+        data: materialTheme,
         child: initUI(),
       ),
     );
@@ -53,19 +67,19 @@ class MyApp extends StatelessWidget {
 
   PlatformProvider initUI() {
     return PlatformProvider(
-        initialPlatform: platform,
-        builder: (context) => PlatformApp(
-          title: 'BOM-bar',
-          material: (_, __) => MaterialAppData(
-            themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
-            theme: materialTheme,
-            darkTheme: materialDarkTheme,
-          ),
-          cupertino: (_, __) => CupertinoAppData(
-            theme: cupertinoTheme,
-          ),
-          home: ProjectsScreen(),
+      initialPlatform: platform,
+      builder: (context) => PlatformApp(
+        title: 'BOM-bar',
+        material: (_, __) => MaterialAppData(
+          themeMode: darkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: materialTheme,
+          darkTheme: materialDarkTheme,
         ),
-      );
+        cupertino: (_, __) => CupertinoAppData(
+          theme: cupertinoTheme,
+        ),
+        home: ProjectsScreen(),
+      ),
+    );
   }
 }
