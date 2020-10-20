@@ -30,6 +30,7 @@ class DependencyService extends ChangeNotifier {
   final BomBarClient _client;
   Dependency current;
 
+  //TODO change to select(String value)
   set id(String value) {
     if (_projectService.current == null) return;
 

@@ -8,6 +8,7 @@
  * All Rights Reserved
  */
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -71,9 +72,12 @@ class _TreeViewState<T> extends State<TreeView<T>> {
               constraints: BoxConstraints(minWidth: 50),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: GestureDetector(
-                  child: widget.leading(context, widget.data),
-                  onTap: _toggleExpand,
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    child: widget.leading(context, widget.data),
+                    onTap: _toggleExpand,
+                  ),
                 ),
               ),
             ),
@@ -82,11 +86,14 @@ class _TreeViewState<T> extends State<TreeView<T>> {
           else
             Expanded(child: Text(widget.data.toString())),
           if (widget.children(widget.data).isNotEmpty)
-            PlatformIconButton(
-              icon: Icon(_expanded
-                  ? Icons.keyboard_arrow_down
-                  : Icons.keyboard_arrow_right),
-              onPressed: _toggleExpand,
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: PlatformIconButton(
+                icon: Icon(_expanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_up),
+                onPressed: _toggleExpand,
+              ),
             )
         ],
       ),

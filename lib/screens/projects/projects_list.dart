@@ -32,7 +32,6 @@ class ProjectsList extends StatelessWidget {
       itemBuilder: (context, index) {
         final project = projects[index];
         return Material(
-          type: MaterialType.transparency,
           child: ListTile(
             leading: Badge(
               badgeContent: Text(

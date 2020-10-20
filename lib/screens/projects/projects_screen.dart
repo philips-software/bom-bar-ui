@@ -53,7 +53,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       body: FutureBuilder(
         future: projects,
         builder: (context, snapshot) => SnapshotWidget(
-          snapshot: snapshot,
+          snapshot,
           builder: (context, list) => ProjectsList(list),
         ),
       ),
@@ -67,7 +67,11 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 
   void _createProject(BuildContext context) {
-    projectService.createNew();
+    projectService.createNew().then((_) {
+      setState(() {
+        projects = backendService.projects();
+      });
+    });
     Navigator.push(context,
         platformPageRoute(context: context, builder: (_) => ProjectScreen()));
   }

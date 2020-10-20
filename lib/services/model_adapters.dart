@@ -8,12 +8,14 @@
  * All Rights Reserved
  */
 import 'package:bom_bar_ui/domain/dependency.dart';
+import 'package:bom_bar_ui/domain/issue.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'] ?? '?',
       issueCount: map['issues'] ?? 0,
+      licenseIssues: toIssueList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['packages'] ?? []),
     );
 
@@ -32,3 +34,12 @@ Dependency toDependency(Map<String, dynamic> map) => Dependency(
 
 List<Dependency> toDependencyList(List<dynamic> list) =>
     list.map((map) => toDependency(map)).toList(growable: false);
+
+Issue toIssue(Map<String, dynamic> map) => Issue(
+      id: map['id'],
+      title: map['title'] ?? '?',
+      description: map['description'] ?? '',
+    );
+
+List<Issue> toIssueList(List<dynamic> list) =>
+    list.map((map) => toIssue(map)).toList(growable: false);

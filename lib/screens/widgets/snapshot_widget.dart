@@ -13,11 +13,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class SnapshotWidget<T> extends StatelessWidget {
-  SnapshotWidget({Key key, @required this.snapshot, @required this.builder})
+  SnapshotWidget(this.snapshot, {Key key, @required this.builder})
       : super(key: key);
 
-  final Widget Function(BuildContext context, T data) builder;
   final AsyncSnapshot<T> snapshot;
+  final Widget Function(BuildContext context, T data) builder;
 
   @override
   Widget build(BuildContext context) {
