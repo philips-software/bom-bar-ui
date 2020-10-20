@@ -9,9 +9,12 @@
  */
 
 import 'package:bom_bar_ui/domain/project.dart';
+import 'package:bom_bar_ui/screens/project/project_screen.dart';
 import 'package:bom_bar_ui/screens/projects/projects_list.dart';
 import 'package:bom_bar_ui/screens/widgets/snapshot_widget.dart';
+import 'package:bom_bar_ui/services/backend_service.dart';
 import 'package:bom_bar_ui/services/project_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -23,14 +26,16 @@ class ProjectsScreen extends StatefulWidget {
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-  ProjectService service;
+  BackendService backendService;
+  ProjectService projectService;
   Future<List<Project>> projects;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    service = Provider.of<ProjectService>(context);
-    projects = service.projects();
+    backendService = Provider.of<BackendService>(context, listen: false);
+    projectService = Provider.of<ProjectService>(context, listen: false);
+    projects = backendService.projects();
   }
 
   @override
@@ -38,15 +43,32 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('All projects'),
+        cupertino: (context, __) => CupertinoNavigationBarData(
+          trailing: PlatformIconButton(
+            icon: Icon(CupertinoIcons.add),
+            onPressed: () => _createProject(context),
+          ),
+        ),
       ),
       body: FutureBuilder(
         future: projects,
-        builder: (context, snapshot) =>
-            SnapshotWidget(
-              snapshot: snapshot,
-              builder: (context, list) => ProjectsList(list),
-            ),
+        builder: (context, snapshot) => SnapshotWidget(
+          snapshot: snapshot,
+          builder: (context, list) => ProjectsList(list),
+        ),
+      ),
+      material: (_, __) => MaterialScaffoldData(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => _createProject(context),
+        ),
       ),
     );
+  }
+
+  void _createProject(BuildContext context) {
+    projectService.createNew();
+    Navigator.push(context,
+        platformPageRoute(context: context, builder: (_) => ProjectScreen()));
   }
 }

@@ -44,7 +44,7 @@ class ProjectsList extends StatelessWidget {
             ),
             title: Text(project.title),
             onTap: () {
-              service.id = project.id;
+              service.select(project.id);
               Navigator.push(
                   context,
                   platformPageRoute(

@@ -12,9 +12,9 @@ import 'package:bom_bar_ui/domain/project.dart';
 
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
-      title: map['title'],
-      issueCount: map['issues'],
-      dependencies: toDependencyList(map['packages']),
+      title: map['title'] ?? '?',
+      issueCount: map['issues'] ?? 0,
+      dependencies: toDependencyList(map['packages'] ?? []),
     );
 
 List<Project> toProjectList(List<dynamic> list) =>
@@ -22,13 +22,13 @@ List<Project> toProjectList(List<dynamic> list) =>
 
 Dependency toDependency(Map<String, dynamic> map) => Dependency(
       id: map['id'],
-      title: map['title'],
-      version: map['version'],
-      license: map['license'],
-      relation: map['relation'],
-      issueCount: map['issues'],
-      dependencies: toDependencyList(map['dependencies']),
+      title: map['title'] ?? '?',
+      version: map['version'] ?? '',
+      license: map['license'] ?? '',
+      relation: map['relation'] ?? '',
+      issueCount: map['issues'] ?? 0,
+      dependencies: toDependencyList(map['dependencies'] ?? []),
     );
 
 List<Dependency> toDependencyList(List<dynamic> list) =>
-    list?.map((map) => toDependency(map))?.toList(growable: false);
+    list.map((map) => toDependency(map)).toList(growable: false);

@@ -21,14 +21,15 @@ class ProjectService extends ChangeNotifier {
   final BomBarClient _client;
   Project current;
 
-  set id(String id) {
-    _client.getProject(id).then((project) {
-      current = project;
-      log('Selected project $id');
-      notifyListeners();
-    }).catchError((error) => log(error));
+  Future<void> createNew() async {
+    current = await _client.createProject();
+    log('Created new project ${current.id}');
+    notifyListeners();
   }
 
-  //TODO Should this function remain here?
-  Future<List<Project>> projects() async => _client.getProjects();
+  Future<void> select(String id) async {
+    current = await _client.getProject(id);
+    log('Selected project $id');
+    notifyListeners();
+  }
 }

@@ -9,6 +9,7 @@
  */
 
 import 'package:bom_bar_ui/screens/projects/projects_screen.dart';
+import 'package:bom_bar_ui/services/backend_service.dart';
 import 'package:bom_bar_ui/services/bombar_client.dart';
 import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:bom_bar_ui/services/project_service.dart';
@@ -27,13 +28,10 @@ void main() {
 }
 
 final _client = BomBarClient();
-final _projectService = ProjectService(
-  client: _client,
-);
-final _dependencyService = DependencyService(
-  projectService: _projectService,
-  client: _client,
-);
+final _backendService = BackendService(client: _client);
+final _projectService = ProjectService(client: _client);
+final _dependencyService =
+    DependencyService(projectService: _projectService, client: _client);
 
 class MyApp extends StatelessWidget {
   static final materialTheme = ThemeData(
@@ -55,6 +53,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider(create: (_) => _backendService),
         ChangeNotifierProvider(create: (_) => _projectService),
         ChangeNotifierProvider(create: (_) => _dependencyService),
       ],

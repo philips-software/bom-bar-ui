@@ -18,46 +18,39 @@ import 'package:flutter/foundation.dart';
 import 'model_adapters.dart';
 
 class BomBarClient {
-  final baseUrl = Uri.http(kIsWeb ? '' : 'localhost:8081', '/');
+  static final baseUrl = Uri.http(kIsWeb ? '' : 'localhost:8081', '/');
+  static final projectsUrl = baseUrl.resolve('projects/');
   final _dio = Dio();
 
+  BomBarClient() {
+    if (kDebugMode) {
+      _dio.interceptors.add(LogInterceptor(
+        responseBody: false,
+        requestHeader: false,
+        responseHeader: false,
+        logPrint: (o) => log(o),
+      ));
+    }
+  }
+
   Future<List<Project>> getProjects() async {
-    var data = await _request(() {
-      log('GET all projects');
-      return _dio.get(baseUrl.resolve('projects').toString());
-    });
-    return toProjectList(data['results']);
+    var response = await _dio.getUri(projectsUrl);
+    return toProjectList(response.data['results']);
   }
 
   Future<Project> getProject(String id) async {
-    return toProject(await _request(() {
-      log('GET project $id');
-      return _dio.get(baseUrl.resolve('projects/$id').toString());
-    }));
+    var response = await _dio.getUri(projectsUrl.resolve(id));
+    return toProject(response.data);
+  }
+
+  Future<Project> createProject() async {
+    var response = await _dio.postUri(projectsUrl, data: {});
+    return toProject(response.data);
   }
 
   Future<Dependency> getDependency(String projectId, String id) async {
-    return toDependency(await _request(() {
-      log('GET dependency $id');
-      return _dio.get(
-          baseUrl.resolve('projects/$projectId/dependencies/${Uri.encodeComponent(id)}').toString());
-    }));
-  }
-
-  Future<T> _request<T>(Future<Response<T>> Function() func) async {
-    try {
-      final response = await func();
-      switch (response.statusCode) {
-        case 200:
-        case 201:
-          return response.data;
-        default:
-          throw Exception(
-              'Server responded with ${response.statusCode}: ${response.statusMessage}');
-      }
-    } catch (e, s) {
-      log(e.toString(), stackTrace: s);
-      throw e;
-    }
+    var response = await _dio.getUri(projectsUrl
+        .resolve('$projectId/dependencies/${Uri.encodeComponent(id)}'));
+    return toDependency(response.data);
   }
 }
