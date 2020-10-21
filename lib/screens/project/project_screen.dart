@@ -9,7 +9,7 @@
  */
 
 import 'package:bom_bar_ui/screens/project/info_card.dart';
-import 'package:bom_bar_ui/screens/project/issues_card.dart';
+import 'package:bom_bar_ui/screens/dependency/issues_card.dart';
 import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -35,8 +35,6 @@ class ProjectScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     InfoCard(service.current),
-                    if (service.current.licenseIssues.isNotEmpty)
-                      IssuesCard(service.current.licenseIssues),
                     if (service.current.dependencies.isNotEmpty)
                       PackagesCard(service.current.dependencies),
                   ],

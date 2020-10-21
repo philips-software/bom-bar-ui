@@ -32,6 +32,11 @@ class InfoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(project.title, style: style.headline4),
+                if (project.issueCount > 0)
+                  Text(
+                    '${project.issueCount} unique license errors',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 Row(
                   children: [
                     Text('Id: ${project.id}'),
