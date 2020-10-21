@@ -22,25 +22,28 @@ class InfoCard extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return Card(
-      child: Column(
-        children: [
-          ListTile(
-            leading: Icon(PlatformIcons(context).info),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(dependency.title, style: style.headline4),
-                Text(Uri.decodeComponent(dependency.id), style:style.bodyText2),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical:8.0),
-                  child: Text('Version: ${dependency.version}'),
-                ),
-                Text('License: ${dependency.license}'),
-              ],
-            ),
+        child: Column(
+      children: [
+        ListTile(
+          leading: Icon(PlatformIcons(context).info),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(dependency.title, style: style.headline4),
+              Text(Uri.decodeComponent(dependency.id), style: style.bodyText2),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(dependency.version.isNotEmpty
+                    ? 'Version: ${dependency.version}'
+                    : '(No version)'),
+              ),
+              Text(dependency.license.isNotEmpty
+                  ? 'License: ${dependency.license}'
+                  : '(No license)'),
+            ],
           ),
-        ],
-      )
-    );
+        ),
+      ],
+    ));
   }
 }

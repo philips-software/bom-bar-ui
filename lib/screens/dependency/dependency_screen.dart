@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import 'dependencies_card.dart';
 import 'info_card.dart';
+import 'issues_card.dart';
 
 class DependencyScreen extends StatelessWidget {
   @override
@@ -30,6 +31,8 @@ class DependencyScreen extends StatelessWidget {
               : SingleChildScrollView(
                   child: Column(children: [
                   InfoCard(service.current),
+                    if (service.current.licenseIssues.isNotEmpty)
+                      IssuesCard(service.current.licenseIssues),
                   if (service.current.dependencies.isNotEmpty)
                     DependenciesCard(service),
                 ]))),

@@ -38,6 +38,6 @@ class DependencyService extends ChangeNotifier {
       current = dep;
       log('Selected dependency $value');
       notifyListeners();
-    }).catchError((error) => log(error));
+    }).catchError((error) => log(error.toString()));
   }
 }

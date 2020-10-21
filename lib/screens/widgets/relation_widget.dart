@@ -20,14 +20,15 @@ class RelationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final totalIssues = dependency.totalIssues;
     return Tooltip(
       message: dependency.relation?.replaceAll('_', ' ') ?? 'Package',
       child: Badge(
         badgeContent: Text(
-          dependency.issueCount.toString(),
+          totalIssues.toString(),
           style: TextStyle(color: Colors.white),
         ),
-        showBadge: dependency.issueCount > 0,
+        showBadge: totalIssues > 0,
         child: Icon(_relationIcon[dependency.relation] ?? Icons.folder),
       ),
     );

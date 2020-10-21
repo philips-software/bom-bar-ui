@@ -7,17 +7,14 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/issue.dart';
-import 'package:bom_bar_ui/screens/dependency/dependency_screen.dart';
 import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 class IssuesCard extends StatelessWidget {
   IssuesCard(this.issues);
 
-  final List<Issue> issues;
+  final List<String> issues;
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +33,10 @@ class IssuesCard extends StatelessWidget {
                       Icons.error,
                       color: Colors.red,
                     ),
-                    title: Text(issue.title),
-                    subtitle: Text(issue.description),
-                    trailing: (issue.id != null)
-                        ? Icon(PlatformIcons(context).rightChevron)
-                        : null,
-                    onTap: (issue.id != null)
-                        ? () {
-                            service.id = issue.id;
-                            Navigator.push(
-                                context,
-                                platformPageRoute(
-                                    context: context,
-                                    builder: (_) => DependencyScreen()));
-                          }
-                        : null,
+                    title: Text(
+                      issue,
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ))
               .toList(growable: false),
         ],

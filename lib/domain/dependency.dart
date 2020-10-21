@@ -18,6 +18,7 @@ class Dependency {
       @required this.license,
       this.relation,
       this.issueCount,
+      this.licenseIssues,
       this.dependencies = const []});
 
   final String id;
@@ -26,5 +27,14 @@ class Dependency {
   final String license;
   final String relation;
   final int issueCount;
+  final List<String> licenseIssues;
   final List<Dependency> dependencies;
+
+  int get totalIssues {
+    return issueCount +
+        (dependencies
+                ?.map((dep) => dep.totalIssues)
+                ?.fold(0, (l, r) => l + r) ??
+            0);
+  }
 }

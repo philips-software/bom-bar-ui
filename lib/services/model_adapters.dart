@@ -8,14 +8,12 @@
  * All Rights Reserved
  */
 import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/domain/issue.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'] ?? '?',
       issueCount: map['issues'] ?? 0,
-      licenseIssues: toIssueList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['packages'] ?? []),
     );
 
@@ -27,19 +25,14 @@ Dependency toDependency(Map<String, dynamic> map) => Dependency(
       title: map['title'] ?? '?',
       version: map['version'] ?? '',
       license: map['license'] ?? '',
-      relation: map['relation'] ?? '',
+      relation: map['relation'],
       issueCount: map['issues'] ?? 0,
+      licenseIssues: toStringList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['dependencies'] ?? []),
     );
 
 List<Dependency> toDependencyList(List<dynamic> list) =>
     list.map((map) => toDependency(map)).toList(growable: false);
 
-Issue toIssue(Map<String, dynamic> map) => Issue(
-      id: map['id'],
-      title: map['title'] ?? '?',
-      description: map['description'] ?? '',
-    );
-
-List<Issue> toIssueList(List<dynamic> list) =>
-    list.map((map) => toIssue(map)).toList(growable: false);
+List<String> toStringList(List<dynamic> list) =>
+    list.map((s) => s.toString()).toList(growable: false);
