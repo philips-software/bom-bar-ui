@@ -10,6 +10,7 @@
 
 import 'package:bom_bar_ui/screens/dependency/dependency_screen.dart';
 import 'package:bom_bar_ui/screens/dependency/dependency_view.dart';
+import 'package:bom_bar_ui/screens/project/info_card.dart';
 import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
