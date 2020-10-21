@@ -9,28 +9,31 @@
  */
 
 import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/screens/widgets/dependencies_tree.dart';
-import 'package:bom_bar_ui/services/dependency_service.dart';
+import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-class PackagesCard extends StatelessWidget {
-  PackagesCard(this.dependencies, {this.onSelect});
+import 'info_card.dart';
+import 'packages_card.dart';
 
-  final List<Dependency> dependencies;
+class ProjectView extends StatelessWidget {
+  ProjectView({this.onSelect});
+
   final Function(Dependency dependency) onSelect;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    final service = Provider.of<ProjectService>(context, listen: false);
+
+    return SingleChildScrollView(
       child: Column(
         children: [
-          ListTile(title: Text('Packages')),
-          DependenciesTree(
-            dependencies,
-            onTap: onSelect,
-          )
+          InfoCard(service.current),
+          if (service.current.dependencies.isNotEmpty)
+            PackagesCard(
+              service.current.dependencies,
+              onSelect: onSelect,
+            ),
         ],
       ),
     );
