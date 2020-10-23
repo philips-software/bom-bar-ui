@@ -10,6 +10,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bom_bar_ui/domain/project.dart';
 import 'package:bom_bar_ui/services/bombar_client.dart';
@@ -31,5 +32,11 @@ class ProjectService extends ChangeNotifier {
     current = await _client.getProject(id);
     log('Selected project $id');
     notifyListeners();
+  }
+
+  Future<void> uploadSpdx() async {
+    await _client.uploadSpdx(current.id);
+    log ('Uploaded SPDX file');
+    select(current.id);
   }
 }

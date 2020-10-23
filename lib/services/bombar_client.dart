@@ -9,16 +9,19 @@
  */
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:bom_bar_ui/domain/project.dart';
+import 'package:bom_bar_ui/plugins/file_uploader.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import 'model_adapters.dart';
 
 class BomBarClient {
-  static final baseUrl = Uri.http(kIsWeb ? '' : 'localhost:8081', '/');
+  static final baseUrl =
+      Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:8081', '/');
   static final projectsUrl = baseUrl.resolve('projects/');
   final _dio = Dio();
 
@@ -34,22 +37,26 @@ class BomBarClient {
   }
 
   Future<List<Project>> getProjects() async {
-    var response = await _dio.getUri(projectsUrl);
+    final response = await _dio.getUri(projectsUrl);
     return toProjectList(response.data['results']);
   }
 
   Future<Project> getProject(String id) async {
-    var response = await _dio.getUri(projectsUrl.resolve(id));
+    final response = await _dio.getUri(projectsUrl.resolve(id));
     return toProject(response.data);
   }
 
   Future<Project> createProject() async {
-    var response = await _dio.postUri(projectsUrl, data: {});
+    final response = await _dio.postUri(projectsUrl, data: {});
     return toProject(response.data);
   }
 
+  Future<void> uploadSpdx(String id) async {
+    await FileUploader(projectsUrl.resolve('$id/upload')).upload();
+  }
+
   Future<Dependency> getDependency(String projectId, String id) async {
-    var response = await _dio.getUri(projectsUrl
+    final response = await _dio.getUri(projectsUrl
         .resolve('$projectId/dependencies/${Uri.encodeComponent(id)}'));
     return toDependency(response.data);
   }
