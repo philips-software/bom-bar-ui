@@ -13,9 +13,17 @@ import 'package:bom_bar_ui/domain/project.dart';
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'] ?? '?',
+      lastUpdate: toDateTime(map['updated']),
       issueCount: map['issues'] ?? 0,
       dependencies: toDependencyList(map['packages'] ?? []),
     );
+
+DateTime toDateTime(String iso) {
+  if (iso == null) {
+    return null;
+  }
+  return DateTime.parse(iso);
+}
 
 List<Project> toProjectList(List<dynamic> list) =>
     list?.map((map) => toProject(map))?.toList(growable: false);

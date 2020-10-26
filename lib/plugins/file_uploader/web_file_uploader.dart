@@ -38,20 +38,20 @@ class FileUploader {
     document.body.append(uploadInput);
 
     final completer = Completer<File>();
-    uploadInput.onChange.listen((e) {
+    final subscription = uploadInput.onChange.listen((e) {
       uploadInput.remove();
       final files = uploadInput.files;
       completer.complete(files.isNotEmpty ? files.first : null);
     });
 
-    return completer.future;
+    return completer.future.whenComplete(() => subscription.cancel());
   }
 
   Future<Uint8List> _getFileContent(File file) {
     final completer = Completer<Uint8List>();
 
     final reader = FileReader();
-    reader.onLoadEnd.listen((event) {
+    final subscription = reader.onLoadEnd.listen((event) {
       try {
         var data =
             Base64Decoder().convert(reader.result.toString().split(",").last);
@@ -62,7 +62,9 @@ class FileUploader {
     });
     reader.readAsDataUrl(file);
 
-    return completer.future;
+    return completer.future
+        .whenComplete(() => subscription.cancel())
+        .catchError(() => subscription.cancel());
   }
 
   Future<void> _uploadDataToServer(

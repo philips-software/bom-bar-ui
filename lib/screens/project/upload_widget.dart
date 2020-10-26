@@ -18,7 +18,7 @@ class UploadWidget extends StatefulWidget {
   _UploadWidgetState createState() => _UploadWidgetState();
 }
 
-enum _Status { IDLE, LOADING, ERROR }
+enum _Status { IDLE, DONE, ERROR }
 
 class _UploadWidgetState extends State<UploadWidget> {
   var _status = _Status.IDLE;
@@ -29,10 +29,9 @@ class _UploadWidgetState extends State<UploadWidget> {
       children: [
         PlatformIconButton(
           icon: Icon(Icons.upload_file),
-          onPressed:
-              (_status != _Status.LOADING) ? () => _onPressed(context) : null,
+          onPressed: ()=>_onPressed(context),
         ),
-        if (_status == _Status.LOADING) PlatformCircularProgressIndicator(),
+        if (_status == _Status.DONE) Icon(Icons.check, color: Colors.green),
         if (_status == _Status.ERROR) Icon(Icons.error, color: Colors.red),
       ],
     );
@@ -41,10 +40,10 @@ class _UploadWidgetState extends State<UploadWidget> {
   void _onPressed(BuildContext context) {
     final service = Provider.of<ProjectService>(context, listen: false);
 
-    nextState = _Status.LOADING;
+    nextState = _Status.IDLE;
     service
         .uploadSpdx()
-        .then((_) => nextState = _Status.IDLE)
+        .then((_) => nextState = _Status.DONE)
         .catchError((_) => nextState = _Status.ERROR);
   }
 

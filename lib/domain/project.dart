@@ -16,12 +16,14 @@ class Project {
   Project({
     @required this.id,
     @required this.title,
+    this.lastUpdate,
     this.issueCount,
     this.dependencies,
   });
 
   final String id;
   String title;
+  final DateTime lastUpdate;
   final int issueCount;
   final List<Dependency> dependencies;
 }

@@ -27,7 +27,7 @@ class DependencyScreen extends StatelessWidget {
       iosContentPadding: true,
       body: Consumer<DependencyService>(
           builder: (context, service, child) => service.current == null
-              ? Center(child: PlatformCircularProgressIndicator())
+              ? null
               : SingleChildScrollView(
                   child: Column(children: [
                   InfoCard(service.current),

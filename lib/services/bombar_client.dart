@@ -9,12 +9,12 @@
  */
 
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:bom_bar_ui/domain/project.dart';
 import 'package:bom_bar_ui/plugins/file_uploader.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:flutter/foundation.dart';
 
 import 'model_adapters.dart';
@@ -23,7 +23,7 @@ class BomBarClient {
   static final baseUrl =
       Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:8081', '/');
   static final projectsUrl = baseUrl.resolve('projects/');
-  final _dio = Dio();
+  final _dio = Dio()..transformer = FlutterTransformer();
 
   BomBarClient() {
     if (kDebugMode) {
