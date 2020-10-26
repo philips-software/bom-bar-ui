@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'dependencies_card.dart';
 import 'info_card.dart';
 import 'issues_card.dart';
 
@@ -26,6 +27,8 @@ class DependencyView extends StatelessWidget {
                 InfoCard(service.current),
                 if (service.current.licenseIssues.isNotEmpty)
                   IssuesCard(service.current.licenseIssues),
+                if (service.current.dependencies.isNotEmpty)
+                DependenciesCard(service),
               ]),
             ),
     );

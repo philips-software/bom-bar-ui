@@ -52,21 +52,19 @@ class ProjectScreen extends StatelessWidget {
                         children: [
                           if (service.current.dependencies.isNotEmpty)
                             Flexible(
-                              child: SingleChildScrollView(
-                                child: PackagesCard(
-                                  service.current.dependencies,
-                                  onSelect: (d) {
-                                    dependencyService.id = d.id;
-                                    if (!isWide) {
-                                      Navigator.push(
-                                          context,
-                                          platformPageRoute(
-                                              context: context,
-                                              builder: (_) =>
-                                                  DependencyScreen()));
-                                    }
-                                  },
-                                ),
+                              child: PackagesCard(
+                                service.current.dependencies,
+                                onSelect: (d) {
+                                  dependencyService.id = d.id;
+                                  if (!isWide) {
+                                    Navigator.push(
+                                        context,
+                                        platformPageRoute(
+                                            context: context,
+                                            builder: (_) =>
+                                                DependencyScreen()));
+                                  }
+                                },
                               ),
                             ),
                           if (isWide)

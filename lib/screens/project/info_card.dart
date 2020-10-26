@@ -37,12 +37,12 @@ class InfoCard extends StatelessWidget {
                 Text(project.title, style: style.headline4),
                 if (project.issueCount > 0)
                   Text(
-                    '${project.issueCount} unique license errors',
+                    '${project.issueCount} license errors',
                     style: TextStyle(color: Colors.red),
                   ),
                 Row(
                   children: [
-                    Text('Upload uuid: ${project.id}'),
+                    Text('UUID: ${project.id}'),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: PlatformIconButton(

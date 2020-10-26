@@ -7,7 +7,7 @@
  *
  * All Rights Reserved
  */
-import 'package:badges/badges.dart';
+
 import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:bom_bar_ui/screens/widgets/dependency_view.dart';
 import 'package:bom_bar_ui/screens/widgets/relation_widget.dart';
@@ -22,8 +22,10 @@ class DependenciesCard extends StatelessWidget {
   final DependencyService service;
 
   @override
-  Widget build(BuildContext context) => Card(
-        child: Column(children: [
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
           ListTile(title: Text('Dependencies')),
           ...service.current.dependencies
               .map(
@@ -38,6 +40,8 @@ class DependenciesCard extends StatelessWidget {
                 ),
               )
               .toList(growable: false),
-        ]),
-      );
+        ],
+      ),
+    );
+  }
 }
