@@ -17,9 +17,10 @@ class Dependency {
       @required this.version,
       @required this.license,
       this.relation,
-      this.issueCount,
-      this.licenseIssues,
-      this.dependencies = const []});
+      this.issueCount = 0,
+      this.licenseIssues = const [],
+      this.dependencies = const [],
+      this.usages = const []});
 
   final String id;
   final String title;
@@ -29,6 +30,7 @@ class Dependency {
   final int issueCount;
   final List<String> licenseIssues;
   final List<Dependency> dependencies;
+  final List<Dependency> usages;
 
   int get totalIssues {
     return issueCount +

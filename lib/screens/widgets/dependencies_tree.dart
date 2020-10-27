@@ -15,6 +15,7 @@ import 'dependency_view.dart';
 import 'relation_widget.dart';
 import 'tree_view.dart';
 
+//TODO Do we still need this widget?
 class DependenciesTree extends StatelessWidget {
   DependenciesTree(this.dependencies, {this.onTap});
 
@@ -31,7 +32,7 @@ class DependenciesTree extends StatelessWidget {
             TreeView<Dependency>(
               data: dep,
               children: (d) => d.dependencies,
-              leading: (_, d) => RelationWidget(dependency: d),
+              leading: (_, d) => RelationWidget(d),
               builder: (context, d) =>
                   DependencyView(
                     dependency: d,

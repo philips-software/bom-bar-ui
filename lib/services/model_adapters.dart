@@ -37,6 +37,7 @@ Dependency toDependency(Map<String, dynamic> map) => Dependency(
       issueCount: map['issues'] ?? 0,
       licenseIssues: toStringList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['dependencies'] ?? []),
+      usages: toDependencyList(map['usages'] ?? []),
     );
 
 List<Dependency> toDependencyList(List<dynamic> list) =>

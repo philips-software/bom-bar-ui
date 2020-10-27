@@ -9,7 +9,6 @@
  */
 import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'dependencies_card.dart';
@@ -20,17 +19,23 @@ class DependencyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<DependencyService>(
-      builder: (context, service, child) => service.current == null
-          ? Center(child: PlatformCircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(children: [
-                InfoCard(service.current),
-                if (service.current.licenseIssues.isNotEmpty)
-                  IssuesCard(service.current.licenseIssues),
-                if (service.current.dependencies.isNotEmpty)
-                DependenciesCard(service),
-              ]),
-            ),
+      builder: (context, service, child) {
+        final dependency = service.current;
+        return dependency == null
+            ? Container()
+            : SingleChildScrollView(
+                child: Column(children: [
+                  InfoCard(dependency),
+                  if (dependency.licenseIssues.isNotEmpty)
+                    IssuesCard(dependency.licenseIssues),
+                  if (dependency.usages.isNotEmpty)
+                    DependenciesCard(dependency.usages, title: 'Dependency of'),
+                  if (dependency.dependencies.isNotEmpty)
+                    DependenciesCard(dependency.dependencies,
+                        title: 'Depends on'),
+                ]),
+              );
+      },
     );
   }
 }

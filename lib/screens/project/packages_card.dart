@@ -8,13 +8,12 @@
  * All Rights Reserved
  */
 
-import 'package:badges/badges.dart';
 import 'package:bom_bar_ui/domain/dependency.dart';
+import 'package:bom_bar_ui/screens/widgets/dependency_tile.dart';
 import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'filter_field.dart';
@@ -41,6 +40,9 @@ class _PackagesCardState extends State<PackagesCard> {
   @override
   Widget build(BuildContext context) {
     final service = Provider.of<DependencyService>(context, listen: false);
+    final packageCount = (_filtered.length != widget.dependencies.length)
+        ? '${_filtered.length}/${widget.dependencies.length}'
+        : widget.dependencies.length.toString();
 
     return Card(
       child: Column(
@@ -48,29 +50,15 @@ class _PackagesCardState extends State<PackagesCard> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ListTile(
-              title: Text(
-                  'Packages (${_filtered.length}/${widget.dependencies.length})')),
-          FilterField(onChanged: (filter) => _filter(filter)),
+          ListTile(title: Text('Packages ($packageCount)')),
+          FilterField(onChanged: _filter),
           Flexible(
             child: ListView(
               padding: EdgeInsets.zero,
               children: _filtered
-                  .map((dep) => ListTile(
-                        key: ValueKey(dep.id),
-                        dense: true,
-                        leading: Badge(
-                          showBadge: dep.issueCount > 0,
-                          badgeContent: Text(
-                            dep.issueCount.toString(),
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          child: Icon(Icons.folder),
-                        ),
-                        title: Text('${dep.title} - ${dep.version}'),
-                        subtitle: Text('License: ${dep.license}'),
-                        trailing: Icon(PlatformIcons(context).forward),
-                        onTap: () => service.id = dep.id,
+                  .map((dep) => DependencyTile(
+                        dep,
+                        onSelect: () => service.id = dep.id,
                       ))
                   .toList(),
             ),
@@ -80,11 +68,12 @@ class _PackagesCardState extends State<PackagesCard> {
     );
   }
 
-  void _filter(String filter) {
+  void _filter(String filter, bool onlyErrors) {
     filter = filter.toLowerCase();
     setState(() {
       _filtered = widget.dependencies
           .where((dep) => dep.title.toLowerCase().contains(filter))
+          .where((dep) => !onlyErrors || dep.issueCount > 0)
           .toList(growable: false);
     });
   }

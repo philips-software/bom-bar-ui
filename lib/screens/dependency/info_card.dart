@@ -25,7 +25,7 @@ class InfoCard extends StatelessWidget {
         child: Column(
       children: [
         ListTile(
-          leading: Icon(PlatformIcons(context).info),
+          leading: Icon(PlatformIcons(context).folder),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

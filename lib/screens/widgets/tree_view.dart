@@ -12,6 +12,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+//TODO Do we still need this widget?
 class TreeView<T> extends StatefulWidget {
   TreeView({
     Key key,

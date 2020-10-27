@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class RelationWidget extends StatelessWidget {
-  RelationWidget({this.dependency});
+  RelationWidget(this.dependency);
 
   final Dependency dependency;
 
@@ -29,9 +29,14 @@ class RelationWidget extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         showBadge: totalIssues > 0,
-        child: Icon(_relationIcon[dependency.relation] ?? Icons.folder),
+        child: _iconFor(dependency.relation),
       ),
     );
+  }
+
+  Icon _iconFor(String relation) {
+    return Icon(_relationIcon[relation] ??
+        ((dependency.id != null) ? Icons.folder : Icons.folder_open_outlined));
   }
 }
 
