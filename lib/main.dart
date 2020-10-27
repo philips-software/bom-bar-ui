@@ -31,7 +31,6 @@ final _dependencyService =
     DependencyService(projectService: _projectService, client: _client);
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

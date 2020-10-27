@@ -30,7 +30,8 @@ class InfoCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(dependency.title, style: style.headline4),
-              Text(Uri.decodeComponent(dependency.id), style: style.bodyText2),
+              if (dependency.purl != null)
+                Text(dependency.purl.toString(), style: style.bodyText2),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(dependency.version.isNotEmpty

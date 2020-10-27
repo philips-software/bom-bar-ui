@@ -31,6 +31,7 @@ List<Project> toProjectList(List<dynamic> list) =>
 Dependency toDependency(Map<String, dynamic> map) => Dependency(
       id: map['id'],
       title: map['title'] ?? '?',
+      purl: toUrl(map['purl']),
       version: map['version'] ?? '',
       license: map['license'] ?? '',
       relation: map['relation'],
@@ -39,6 +40,8 @@ Dependency toDependency(Map<String, dynamic> map) => Dependency(
       dependencies: toDependencyList(map['dependencies'] ?? []),
       usages: toDependencyList(map['usages'] ?? []),
     );
+
+Uri toUrl(String string) => (string != null) ? Uri.parse(string) : null;
 
 List<Dependency> toDependencyList(List<dynamic> list) =>
     list.map((map) => toDependency(map)).toList(growable: false);

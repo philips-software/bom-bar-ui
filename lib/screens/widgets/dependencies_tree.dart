@@ -25,22 +25,19 @@ class DependenciesTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:
-      dependencies
+      children: dependencies
           .map(
-            (dep) =>
-            TreeView<Dependency>(
+            (dep) => TreeView<Dependency>(
               data: dep,
               children: (d) => d.dependencies,
               leading: (_, d) => RelationWidget(d),
-              builder: (context, d) =>
-                  DependencyView(
-                    dependency: d,
-                    onTap: onTap,
-                  ),
+              builder: (context, d) => DependencyView(
+                dependency: d,
+                onTap: onTap,
+              ),
             ),
-      ).toList(growable: false),
+          )
+          .toList(growable: false),
     );
   }
 }
-

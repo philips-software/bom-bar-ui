@@ -11,19 +11,22 @@
 import 'package:flutter/foundation.dart';
 
 class Dependency {
-  Dependency(
-      {@required this.id,
-      @required this.title,
-      @required this.version,
-      @required this.license,
-      this.relation,
-      this.issueCount = 0,
-      this.licenseIssues = const [],
-      this.dependencies = const [],
-      this.usages = const []});
+  Dependency({
+    this.id,
+    this.title,
+    this.purl,
+    this.version,
+    this.license,
+    this.relation,
+    this.issueCount = 0,
+    this.licenseIssues = const [],
+    this.dependencies = const [],
+    this.usages = const [],
+  });
 
   final String id;
   final String title;
+  final Uri purl;
   final String version;
   final String license;
   final String relation;

@@ -28,11 +28,11 @@ class DependencyView extends StatelessWidget {
                   InfoCard(dependency),
                   if (dependency.licenseIssues.isNotEmpty)
                     IssuesCard(dependency.licenseIssues),
-                  if (dependency.usages.isNotEmpty)
-                    DependenciesCard(dependency.usages, title: 'Dependency of'),
                   if (dependency.dependencies.isNotEmpty)
                     DependenciesCard(dependency.dependencies,
                         title: 'Depends on'),
+                  if (dependency.usages.isNotEmpty)
+                    DependenciesCard(dependency.usages, title: 'Dependency of'),
                 ]),
               );
       },

@@ -56,9 +56,9 @@ class InfoCard extends StatelessWidget {
                 Row(
                   children: [
                     if (project.lastUpdate != null)
-                      Text('Last SBOM update: ${project.lastUpdate.toLocal()}')
+                      Text('Last update: ${project.lastUpdate.toLocal()}')
                     else
-                      Text('(No SBOM data)'),
+                      Text('(No bill-of-materials imported yet)'),
                     if (kIsWeb) UploadWidget(),
                   ],
                 )

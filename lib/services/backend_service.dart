@@ -17,4 +17,3 @@ class BackendService {
 
   Future<List<Project>> projects() async => client.getProjects();
 }
-

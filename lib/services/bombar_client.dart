@@ -56,8 +56,8 @@ class BomBarClient {
   }
 
   Future<Dependency> getDependency(String projectId, String id) async {
-    final response = await _dio.getUri(projectsUrl
-        .resolve('$projectId/dependencies/${Uri.encodeComponent(id)}'));
+    final response =
+        await _dio.getUri(projectsUrl.resolve('$projectId/dependencies/$id'));
     return toDependency(response.data);
   }
 }

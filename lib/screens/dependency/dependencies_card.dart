@@ -23,7 +23,7 @@ class DependenciesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<DependencyService>(context, listen:false);
+    final service = Provider.of<DependencyService>(context, listen: false);
 
     return Card(
       child: Column(

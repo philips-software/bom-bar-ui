@@ -29,7 +29,7 @@ class _UploadWidgetState extends State<UploadWidget> {
       children: [
         PlatformIconButton(
           icon: Icon(Icons.upload_file),
-          onPressed: ()=>_onPressed(context),
+          onPressed: () => _onPressed(context),
         ),
         if (_status == _Status.DONE) Icon(Icons.check, color: Colors.green),
         if (_status == _Status.ERROR) Icon(Icons.error, color: Colors.red),

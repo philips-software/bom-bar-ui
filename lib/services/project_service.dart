@@ -36,7 +36,7 @@ class ProjectService extends ChangeNotifier {
 
   Future<void> uploadSpdx() async {
     await _client.uploadSpdx(current.id);
-    log ('Uploaded SPDX file');
+    log('Uploaded SPDX file');
     select(current.id);
   }
 }
