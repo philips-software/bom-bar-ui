@@ -7,8 +7,8 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/project.dart';
-import 'package:bom_bar_ui/services/bombar_client.dart';
+import '../model/project.dart';
+import 'bombar_client.dart';
 
 class BackendService {
   BackendService({this.client});

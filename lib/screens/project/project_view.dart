@@ -8,11 +8,11 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/dependency.dart';
+import '../../services/project_service.dart';
 import 'info_card.dart';
 import 'packages_card.dart';
 

@@ -8,12 +8,17 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/project_service.dart';
+
 class UploadWidget extends StatefulWidget {
+  UploadWidget({this.onUpdated});
+
+  final Function() onUpdated;
+
   @override
   _UploadWidgetState createState() => _UploadWidgetState();
 }
@@ -41,10 +46,10 @@ class _UploadWidgetState extends State<UploadWidget> {
     final service = Provider.of<ProjectService>(context, listen: false);
 
     nextState = _Status.IDLE;
-    service
-        .uploadSpdx()
-        .then((_) => nextState = _Status.DONE)
-        .catchError((_) => nextState = _Status.ERROR);
+    service.uploadSpdx().then((_) {
+      nextState = _Status.DONE;
+      widget.onUpdated?.call();
+    }).catchError((_) => nextState = _Status.ERROR);
   }
 
   set nextState(_Status value) => setState(() {

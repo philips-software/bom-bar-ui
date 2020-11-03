@@ -8,9 +8,10 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../../model/dependency.dart';
 
 class DependencyView extends StatelessWidget {
   DependencyView({this.dependency, this.onTap});

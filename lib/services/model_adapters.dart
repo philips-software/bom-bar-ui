@@ -7,8 +7,8 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/domain/project.dart';
+import '../model/dependency.dart';
+import '../model/project.dart';
 
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],

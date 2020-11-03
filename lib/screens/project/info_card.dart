@@ -7,7 +7,6 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/project.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../model/project.dart';
 import 'upload_widget.dart';
 
 class InfoCard extends StatelessWidget {

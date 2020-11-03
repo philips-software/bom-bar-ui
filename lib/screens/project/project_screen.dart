@@ -8,16 +8,15 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/screens/dependency/dependency_screen.dart';
-import 'package:bom_bar_ui/screens/dependency/dependency_view.dart';
-import 'package:bom_bar_ui/screens/project/info_card.dart';
-import 'package:bom_bar_ui/services/dependency_service.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/dependency_service.dart';
+import '../../services/project_service.dart';
+import '../dependency/dependency_screen.dart';
+import '../dependency/dependency_view.dart';
 import 'info_card.dart';
 import 'packages_card.dart';
 

@@ -7,10 +7,10 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../model/dependency.dart';
 import 'relation_widget.dart';
 
 class DependencyTile extends StatelessWidget {

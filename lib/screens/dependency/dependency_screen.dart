@@ -7,10 +7,11 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/screens/dependency/dependency_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+
+import 'dependency_view.dart';
 
 class DependencyScreen extends StatelessWidget {
   @override

@@ -9,14 +9,15 @@
  */
 
 import 'package:badges/badges.dart';
-import 'package:bom_bar_ui/domain/project.dart';
-import 'package:bom_bar_ui/screens/project/project_screen.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../model/project.dart';
+import '../../services/project_service.dart';
+import '../project/project_screen.dart';
 
 class ProjectsList extends StatelessWidget {
   ProjectsList(this.projects, {Key key}) : super(key: key);

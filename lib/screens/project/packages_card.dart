@@ -8,14 +8,14 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/screens/widgets/dependency_tile.dart';
-import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/dependency.dart';
+import '../../services/dependency_service.dart';
+import '../widgets/dependency_tile.dart';
 import 'filter_field.dart';
 
 class PackagesCard extends StatefulWidget {

@@ -10,13 +10,13 @@
 
 import 'dart:developer';
 
-import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/domain/project.dart';
-import 'package:bom_bar_ui/plugins/file_uploader.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/dependency.dart';
+import '../model/project.dart';
+import '../plugins/file_uploader.dart';
 import 'model_adapters.dart';
 
 class BomBarClient {

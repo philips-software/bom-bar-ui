@@ -9,9 +9,10 @@
  */
 
 import 'package:badges/badges.dart';
-import 'package:bom_bar_ui/domain/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../../model/dependency.dart';
 
 class RelationWidget extends StatelessWidget {
   RelationWidget(this.dependency);

@@ -10,10 +10,11 @@
 
 import 'dart:developer';
 
-import 'package:bom_bar_ui/domain/dependency.dart';
-import 'package:bom_bar_ui/services/bombar_client.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/foundation.dart';
+
+import '../model/dependency.dart';
+import 'bombar_client.dart';
+import 'project_service.dart';
 
 class DependencyService extends ChangeNotifier {
   DependencyService({ProjectService projectService, BomBarClient client})

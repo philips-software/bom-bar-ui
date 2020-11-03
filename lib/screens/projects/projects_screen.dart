@@ -8,17 +8,18 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/domain/project.dart';
-import 'package:bom_bar_ui/screens/project/project_screen.dart';
-import 'package:bom_bar_ui/screens/projects/projects_list.dart';
-import 'package:bom_bar_ui/screens/widgets/snapshot_widget.dart';
-import 'package:bom_bar_ui/services/backend_service.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../model/project.dart';
+import '../../services/backend_service.dart';
+import '../../services/project_service.dart';
+import '../project/project_screen.dart';
+import '../widgets/snapshot_widget.dart';
+import 'projects_list.dart';
 
 class ProjectsScreen extends StatefulWidget {
   @override

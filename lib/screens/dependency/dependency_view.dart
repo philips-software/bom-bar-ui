@@ -7,10 +7,10 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/dependency_service.dart';
 import 'dependencies_card.dart';
 import 'info_card.dart';
 import 'issues_card.dart';

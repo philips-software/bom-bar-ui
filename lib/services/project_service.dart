@@ -10,11 +10,11 @@
 
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:bom_bar_ui/domain/project.dart';
-import 'package:bom_bar_ui/services/bombar_client.dart';
 import 'package:flutter/foundation.dart';
+
+import '../model/project.dart';
+import 'bombar_client.dart';
 
 class ProjectService extends ChangeNotifier {
   ProjectService({BomBarClient client}) : _client = client ?? BomBarClient();

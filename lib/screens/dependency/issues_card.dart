@@ -7,9 +7,10 @@
  *
  * All Rights Reserved
  */
-import 'package:bom_bar_ui/services/dependency_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../services/dependency_service.dart';
 
 class IssuesCard extends StatelessWidget {
   IssuesCard(this.issues);

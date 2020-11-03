@@ -8,17 +8,16 @@
  * All Rights Reserved
  */
 
-import 'package:bom_bar_ui/screens/projects/projects_screen.dart';
-import 'package:bom_bar_ui/services/backend_service.dart';
-import 'package:bom_bar_ui/services/bombar_client.dart';
-import 'package:bom_bar_ui/services/dependency_service.dart';
-import 'package:bom_bar_ui/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/app_theme.dart';
+import 'screens/projects/projects_screen.dart';
+import 'services/backend_service.dart';
+import 'services/bombar_client.dart';
+import 'services/dependency_service.dart';
+import 'services/project_service.dart';
 
 void main() {
   runApp(MyApp());
