@@ -51,9 +51,8 @@ class BomBarClient {
     return toProject(response.data);
   }
 
-  Future<void> uploadSpdx(String id) async {
-    await FileUploader(projectsUrl.resolve('$id/upload')).upload();
-  }
+  Future<void> uploadSpdx(String id) =>
+      FileUploader(projectsUrl.resolve('$id/upload')).upload();
 
   Future<Dependency> getDependency(String projectId, String id) async {
     final response =

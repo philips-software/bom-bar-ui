@@ -38,6 +38,12 @@ class _PackagesCardState extends State<PackagesCard> {
   }
 
   @override
+  void didUpdateWidget(PackagesCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _filtered = widget.dependencies;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final service = Provider.of<DependencyService>(context, listen: false);
     final packageCount = (_filtered.length != widget.dependencies.length)
