@@ -7,10 +7,16 @@
  *
  * All Rights Reserved
  */
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+
 import '../model/project.dart';
 import 'bombar_client.dart';
 
 class BackendService {
+  factory BackendService.of(BuildContext context) =>
+      Provider.of<BackendService>(context, listen: false);
+
   BackendService({this.client});
 
   final BomBarClient client;

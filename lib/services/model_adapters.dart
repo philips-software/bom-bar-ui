@@ -28,6 +28,9 @@ DateTime toDateTime(String iso) {
 List<Project> toProjectList(List<dynamic> list) =>
     list?.map((map) => toProject(map))?.toList(growable: false);
 
+Map<String, dynamic> fromProject(Project project) =>
+    {'id': project.id, 'title': project.title};
+
 Dependency toDependency(Map<String, dynamic> map) => Dependency(
       id: map['id'],
       title: map['title'] ?? '?',

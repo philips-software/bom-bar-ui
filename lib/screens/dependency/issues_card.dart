@@ -19,8 +19,6 @@ class IssuesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<DependencyService>(context, listen: false);
-
     return Card(
       child: Column(
         children: [

@@ -41,13 +41,21 @@ class BomBarClient {
     return toProjectList(response.data['results']);
   }
 
+  Future<Project> createProject() async {
+    final response = await _dio.postUri(projectsUrl, data: {});
+    return toProject(response.data);
+  }
+
   Future<Project> getProject(String id) async {
     final response = await _dio.getUri(projectsUrl.resolve(id));
     return toProject(response.data);
   }
 
-  Future<Project> createProject() async {
-    final response = await _dio.postUri(projectsUrl, data: {});
+  Future<Project> updateProject(Project project) async {
+    final response = await _dio.putUri(
+      projectsUrl.resolve(project.id),
+      data: fromProject(project),
+    );
     return toProject(response.data);
   }
 

@@ -8,8 +8,6 @@
  * All Rights Reserved
  */
 
-import 'package:flutter/foundation.dart';
-
 class Dependency {
   Dependency({
     this.id,

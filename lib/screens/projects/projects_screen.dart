@@ -34,8 +34,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    backendService = Provider.of<BackendService>(context, listen: false);
-    projectService = Provider.of<ProjectService>(context, listen: false);
+    backendService = BackendService.of(context);
+    projectService = ProjectService.of(context);
     projects = backendService.projects();
   }
 

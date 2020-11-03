@@ -45,7 +45,7 @@ class _PackagesCardState extends State<PackagesCard> {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<DependencyService>(context, listen: false);
+    final service = DependencyService.of(context);
     final packageCount = (_filtered.length != widget.dependencies.length)
         ? '${_filtered.length}/${widget.dependencies.length}'
         : widget.dependencies.length.toString();

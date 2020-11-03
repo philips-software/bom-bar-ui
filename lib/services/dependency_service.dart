@@ -11,12 +11,17 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../model/dependency.dart';
 import 'bombar_client.dart';
 import 'project_service.dart';
 
 class DependencyService extends ChangeNotifier {
+  factory DependencyService.of(BuildContext context) =>
+      Provider.of<DependencyService>(context, listen: false);
+
   DependencyService({ProjectService projectService, BomBarClient client})
       : _projectService = projectService,
         _client = client ?? BomBarClient() {

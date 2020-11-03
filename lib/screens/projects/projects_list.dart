@@ -26,7 +26,7 @@ class ProjectsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Provider.of<ProjectService>(context, listen: false);
+    final service = ProjectService.of(context);
 
     return ListView.builder(
       itemCount: projects.length,

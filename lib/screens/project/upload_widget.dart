@@ -43,7 +43,7 @@ class _UploadWidgetState extends State<UploadWidget> {
   }
 
   void _onPressed(BuildContext context) {
-    final service = Provider.of<ProjectService>(context, listen: false);
+    final service = ProjectService.of(context);
 
     nextState = _Status.IDLE;
     service.uploadSpdx().then((_) {

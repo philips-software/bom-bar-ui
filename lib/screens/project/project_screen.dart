@@ -26,8 +26,7 @@ class ProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isWide = MediaQuery.of(context).size.width > 1000;
-    final dependencyService =
-        Provider.of<DependencyService>(context, listen: true);
+    final dependencyService = DependencyService.of(context);
 
     return PlatformScaffold(
       appBar: PlatformAppBar(

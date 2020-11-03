@@ -15,6 +15,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../model/project.dart';
+import '../../services/project_service.dart';
+import '../widgets/text_field_dialog.dart';
 import 'upload_widget.dart';
 
 class InfoCard extends StatelessWidget {
@@ -34,13 +36,23 @@ class InfoCard extends StatelessWidget {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(project.title, style: style.headline4),
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text(project.title, style: style.headline4),
+                    PlatformIconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () => _editTitle(context),
+                    )
+                  ],
+                ),
                 if (project.issueCount > 0)
                   Text(
                     '${project.issueCount} license errors',
                     style: TextStyle(color: Colors.red),
                   ),
-                Row(
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Text('UUID: ${project.id}'),
                     MouseRegion(
@@ -53,7 +65,8 @@ class InfoCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     if (project.lastUpdate != null)
                       Text('Last update: ${project.lastUpdate.toLocal()}')
@@ -68,5 +81,16 @@ class InfoCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _editTitle(BuildContext context) {
+    TextFieldDialog(title: 'Project title', value: project.title)
+        .show(context)
+        .then((value) {
+      if (value != null) {
+        final service = ProjectService.of(context);
+        service.update(Project(id: project.id, title: value));
+      }
+    });
   }
 }
