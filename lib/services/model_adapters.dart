@@ -10,10 +10,21 @@
 import '../model/dependency.dart';
 import '../model/project.dart';
 
+const _distributions = {
+  Distribution.internal: 'internal',
+  Distribution.open_source: 'open_source',
+  Distribution.proprietary: 'proprietary',
+  Distribution.saas: 'saas'
+};
+
+const _phases = {Phase.development: 'development', Phase.released: 'released'};
+
 Project toProject(Map<String, dynamic> map) => Project(
       id: map['id'],
       title: map['title'] ?? '?',
       lastUpdate: toDateTime(map['updated']),
+      distribution: toDistribution(map['distribution']),
+      phase: toPhase(map['phase']),
       issueCount: map['issues'] ?? 0,
       dependencies: toDependencyList(map['packages'] ?? []),
     );
@@ -25,11 +36,31 @@ DateTime toDateTime(String iso) {
   return DateTime.parse(iso);
 }
 
+Distribution toDistribution(String value) {
+  value = value.toLowerCase();
+  return _distributions.entries
+          .firstWhere((element) => element.value == value, orElse: () => null)
+          ?.key ??
+      Distribution.unknown;
+}
+
+Phase toPhase(String value) {
+  value = value.toLowerCase();
+  return _phases.entries
+          .firstWhere((element) => element.value == value, orElse: () => null)
+          ?.key ??
+      Phase.unknown;
+}
+
 List<Project> toProjectList(List<dynamic> list) =>
     list?.map((map) => toProject(map))?.toList(growable: false);
 
-Map<String, dynamic> fromProject(Project project) =>
-    {'id': project.id, 'title': project.title};
+Map<String, dynamic> fromProject(Project project) => {
+      'id': project.id,
+      'title': project.title,
+      'distribution': _distributions[project.distribution],
+      'phase': _phases[project.phase],
+    };
 
 Dependency toDependency(Map<String, dynamic> map) => Dependency(
       id: map['id'],

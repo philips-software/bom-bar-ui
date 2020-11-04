@@ -11,8 +11,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-class TextFieldDialog {
-  TextFieldDialog({this.title, this.value});
+class EditTextDialog {
+  EditTextDialog({this.title, this.value});
 
   final String title;
   final String value;

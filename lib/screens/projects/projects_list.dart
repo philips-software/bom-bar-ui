@@ -43,6 +43,7 @@ class ProjectsList extends StatelessWidget {
               child: Icon(PlatformIcons(context).home),
             ),
             title: Text(project.title),
+            subtitle: Text('Phase: ${project.phase.name}'),
             onTap: () {
               service.select(project.id);
               Navigator.push(

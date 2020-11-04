@@ -15,8 +15,10 @@ import 'dependency.dart';
 class Project {
   Project({
     @required this.id,
-    @required this.title,
+    this.title,
     this.lastUpdate,
+    this.distribution,
+    this.phase,
     this.issueCount,
     this.dependencies,
   });
@@ -24,6 +26,22 @@ class Project {
   final String id;
   String title;
   final DateTime lastUpdate;
+  final Distribution distribution;
+  final Phase phase;
   final int issueCount;
   final List<Dependency> dependencies;
 }
+
+enum Distribution { open_source, internal, saas, proprietary, unknown }
+
+extension DistributionName on Distribution {
+  String get name => _name(this);
+}
+
+enum Phase { development, released, unknown }
+
+extension PhaseName on Phase {
+  String get name => _name(this);
+}
+
+String _name(dynamic object) => object.toString().split('.').last.toUpperCase();
