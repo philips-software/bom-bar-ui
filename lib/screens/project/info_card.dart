@@ -13,6 +13,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:intl/intl.dart';
 
 import '../../model/project.dart';
 import '../../services/project_service.dart';
@@ -20,6 +21,8 @@ import '../widgets/text_field_dialog.dart';
 import 'upload_widget.dart';
 
 class InfoCard extends StatelessWidget {
+  static final dateFormat = DateFormat.yMMMMEEEEd().add_Hm();
+
   InfoCard(this.project);
 
   final Project project;
@@ -69,7 +72,7 @@ class InfoCard extends StatelessWidget {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     if (project.lastUpdate != null)
-                      Text('Last update: ${project.lastUpdate.toLocal()}')
+                      Text('Last update: ${dateFormat.format(project.lastUpdate)}')
                     else
                       Text('(No bill-of-materials imported yet)'),
                     if (kIsWeb) UploadWidget(),
