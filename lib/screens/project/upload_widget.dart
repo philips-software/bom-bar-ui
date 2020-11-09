@@ -9,10 +9,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
 import '../../services/project_service.dart';
+import '../widgets/action_button.dart';
 
 class UploadWidget extends StatefulWidget {
   UploadWidget({this.onUpdated});
@@ -31,9 +30,10 @@ class _UploadWidgetState extends State<UploadWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        PlatformIconButton(
-          icon: Icon(Icons.upload_file),
+        ActionButton(
+          icon: Icons.upload_file,
           onPressed: () => _onPressed(context),
         ),
         if (_status == _Status.DONE) Icon(Icons.check, color: Colors.green),

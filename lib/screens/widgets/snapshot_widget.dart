@@ -8,8 +8,7 @@
  * All Rights Reserved
  */
 
-import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter/material.dart';
 
 class SnapshotWidget<T> extends StatelessWidget {
   SnapshotWidget(this.snapshot, {Key key, @required this.builder})
@@ -25,7 +24,7 @@ class SnapshotWidget<T> extends StatelessWidget {
     }
     if (!snapshot.hasData) {
       return Center(
-        child: PlatformCircularProgressIndicator(),
+        child: CircularProgressIndicator(),
       );
     }
     return builder(context, snapshot.data);

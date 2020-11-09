@@ -8,7 +8,6 @@
  * All Rights Reserved
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +19,7 @@ import 'services/dependency_service.dart';
 import 'services/project_service.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(BomBarApplication());
 }
 
 final _client = BomBarClient();
@@ -29,7 +28,7 @@ final _projectService = ProjectService(client: _client);
 final _dependencyService =
     DependencyService(projectService: _projectService, client: _client);
 
-class MyApp extends StatelessWidget {
+class BomBarApplication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -38,7 +37,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => _projectService),
         ChangeNotifierProvider(create: (_) => _dependencyService),
       ],
-      child: AppTheme(child: ProjectsScreen()),
+      child: AppTheme(
+        child: ProjectsScreen(),
+      ),
     );
   }
 }

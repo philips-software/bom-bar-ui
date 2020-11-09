@@ -10,7 +10,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 
 import '../../model/dependency.dart';
 import '../../services/dependency_service.dart';

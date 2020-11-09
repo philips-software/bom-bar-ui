@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class EditSelectionDialog<T> {
   EditSelectionDialog({this.title, this.values, this.selection});
@@ -19,14 +18,15 @@ class EditSelectionDialog<T> {
   T selection;
 
   Future<T> show(BuildContext context) {
-    return showPlatformDialog(
+    return showDialog(
       context: context,
-      builder: (context) => PlatformAlertDialog(
+      builder: (context) => AlertDialog(
         title: Text(title),
         content: StatefulBuilder(
           builder: (context, setState) => Material(
             type: MaterialType.transparency,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: values.entries
                   .map(
                     (item) => Row(
@@ -45,11 +45,10 @@ class EditSelectionDialog<T> {
           ),
         ),
         actions: [
-          PlatformDialogAction(
-              child: PlatformText('Cancel'),
-              onPressed: () => Navigator.pop(context)),
-          PlatformDialogAction(
-              child: PlatformText('OK'),
+          TextButton(
+              child: Text('CANCEL'), onPressed: () => Navigator.pop(context)),
+          TextButton(
+              child: Text('OK'),
               onPressed: () => Navigator.pop(context, selection)),
         ],
       ),

@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../model/dependency.dart';
 
@@ -26,7 +25,7 @@ class InfoCard extends StatelessWidget {
         child: Column(
       children: [
         ListTile(
-          leading: Icon(PlatformIcons(context).folder),
+          leading: Icon(Icons.folder),
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

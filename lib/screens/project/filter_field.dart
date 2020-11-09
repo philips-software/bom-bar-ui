@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class FilterField extends StatefulWidget {
   FilterField({this.onChanged});
@@ -36,22 +35,18 @@ class _FilterFieldState extends State<FilterField> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: PlatformTextField(
-                    controller: _controller,
-                    onChanged: (value) => widget.onChanged(value, _onlyErrors),
-                    autofocus: true,
-                    material: (_, __) => MaterialTextFieldData(
-                          decoration: InputDecoration(
-                            hintText: 'Filter',
-                          ),
-                        ),
-                    cupertino: (_, __) => CupertinoTextFieldData(
-                          placeholder: 'Filter',
-                        )),
+                child: TextField(
+                  controller: _controller,
+                  onChanged: (value) => widget.onChanged(value, _onlyErrors),
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    hintText: 'Filter',
+                  ),
+                ),
               ),
             ),
-            PlatformIconButton(
-              icon: Icon(PlatformIcons(context).clear),
+            IconButton(
+              icon: Icon(Icons.clear),
               onPressed: () {
                 _controller.clear();
                 widget.onChanged('', _onlyErrors);
@@ -59,7 +54,7 @@ class _FilterFieldState extends State<FilterField> {
             )
           ],
         ),
-        SwitchListTile.adaptive(
+        SwitchListTile(
           value: _onlyErrors,
           title: Text('Show only errors'),
           onChanged: (value) => setState(() {

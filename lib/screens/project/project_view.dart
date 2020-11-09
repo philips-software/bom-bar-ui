@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../model/dependency.dart';
 import '../../services/project_service.dart';

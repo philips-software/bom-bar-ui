@@ -8,11 +8,7 @@
  * All Rights Reserved
  */
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
 import '../../model/project.dart';
 import '../../services/backend_service.dart';
@@ -41,15 +37,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text('All projects'),
-        cupertino: (context, __) => CupertinoNavigationBarData(
-          trailing: PlatformIconButton(
-            icon: Icon(CupertinoIcons.add),
-            onPressed: () => _createProject(context),
-          ),
-        ),
       ),
       body: FutureBuilder(
         future: projects,
@@ -58,11 +48,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           builder: (context, list) => ProjectsList(list),
         ),
       ),
-      material: (_, __) => MaterialScaffoldData(
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => _createProject(context),
-        ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _createProject(context),
       ),
     );
   }
@@ -73,7 +61,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         projects = backendService.projects();
       });
     });
-    Navigator.push(context,
-        platformPageRoute(context: context, builder: (_) => ProjectScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => ProjectScreen()),
+    );
   }
 }

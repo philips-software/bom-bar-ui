@@ -9,11 +9,7 @@
  */
 
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
 import '../../model/project.dart';
 import '../../services/project_service.dart';
@@ -40,18 +36,16 @@ class ProjectsList extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               showBadge: project.issueCount > 0,
-              child: Icon(PlatformIcons(context).home),
+              child: Icon(Icons.home),
             ),
             title: Text(project.title),
             subtitle: Text('Phase: ${project.phase.name}'),
             onTap: () {
               service.select(project.id);
               Navigator.push(
-                  context,
-                  platformPageRoute(
-                    context: context,
-                    builder: (_) => ProjectScreen(),
-                  ));
+                context,
+                MaterialPageRoute(builder: (_) => ProjectScreen()),
+              );
             },
           ),
         );

@@ -9,8 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/dependency_service.dart';
@@ -28,14 +26,13 @@ class ProjectScreen extends StatelessWidget {
     final isWide = MediaQuery.of(context).size.width > 1000;
     final dependencyService = DependencyService.of(context);
 
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
+    return Scaffold(
+      appBar: AppBar(
         title: Text('Project'),
       ),
-      iosContentPadding: true,
       body: Consumer<ProjectService>(
         builder: (context, service, child) => service.current == null
-            ? Center(child: PlatformCircularProgressIndicator())
+            ? Center(child: CircularProgressIndicator())
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.max,
@@ -57,8 +54,7 @@ class ProjectScreen extends StatelessWidget {
                                   if (!isWide) {
                                     Navigator.push(
                                         context,
-                                        platformPageRoute(
-                                            context: context,
+                                        MaterialPageRoute(
                                             builder: (_) =>
                                                 DependencyScreen()));
                                   }

@@ -8,7 +8,6 @@
  * All Rights Reserved
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../model/dependency.dart';
 import 'relation_widget.dart';
@@ -29,7 +28,7 @@ class DependencyTile extends StatelessWidget {
       leading: RelationWidget(dep),
       title: Text('${dep.title} - ${dep.version}'),
       subtitle: Text('License: ${dep.license}'),
-      trailing: (hasId) ? Icon(PlatformIcons(context).forward) : null,
+      trailing: (hasId) ? Icon(Icons.chevron_right) : null,
       onTap: (hasId) ? onSelect : null,
     );
   }

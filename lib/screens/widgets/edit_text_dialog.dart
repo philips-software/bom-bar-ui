@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class EditTextDialog {
   EditTextDialog({this.title, this.value});
@@ -20,20 +19,19 @@ class EditTextDialog {
   Future<String> show(BuildContext context) {
     final controller = TextEditingController(text: value);
 
-    return showPlatformDialog(
+    return showDialog(
       context: context,
-      builder: (context) => PlatformAlertDialog(
+      builder: (context) => AlertDialog(
         title: Text(title),
-        content: PlatformTextField(
+        content: TextField(
           controller: controller,
           autofocus: true,
         ),
         actions: [
-          PlatformDialogAction(
-              child: PlatformText('Cancel'),
-              onPressed: () => Navigator.pop(context)),
-          PlatformDialogAction(
-              child: PlatformText('OK'),
+          TextButton(
+              child: Text('CANCEL'), onPressed: () => Navigator.pop(context)),
+          TextButton(
+              child: Text('OK'),
               onPressed: () => Navigator.pop(context, controller.text)),
         ],
       ),
