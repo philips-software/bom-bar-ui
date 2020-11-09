@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 
 import '../../services/dependency_service.dart';
 import '../../services/project_service.dart';
-import '../dependency/dependency_screen.dart';
 import '../dependency/dependency_view.dart';
 import 'info_card.dart';
 import 'packages_card.dart';
@@ -50,14 +49,12 @@ class ProjectScreen extends StatelessWidget {
                               child: PackagesCard(
                                 service.current.dependencies,
                                 onSelect: (d) {
-                                  dependencyService.id = d.id;
-                                  if (!isWide) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) =>
-                                                DependencyScreen()));
-                                  }
+                                  dependencyService.select(d.id).then((_) {
+                                    if (!isWide) {
+                                      Navigator.pushNamed(
+                                          context, '/dependency');
+                                    }
+                                  });
                                 },
                               ),
                             ),

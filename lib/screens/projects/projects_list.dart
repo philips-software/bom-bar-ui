@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 
 import '../../model/project.dart';
 import '../../services/project_service.dart';
-import '../project/project_screen.dart';
 
 class ProjectsList extends StatelessWidget {
   ProjectsList(this.projects, {Key key}) : super(key: key);
@@ -42,10 +41,7 @@ class ProjectsList extends StatelessWidget {
             subtitle: Text('Phase: ${project.phase.name}'),
             onTap: () {
               service.select(project.id);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => ProjectScreen()),
-              );
+              Navigator.pushNamed(context, '/project');
             },
           ),
         );

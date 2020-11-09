@@ -11,11 +11,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'app_routes.dart';
+
 const themeMode = ThemeMode.light;
 // const themeMode = ThemeMode.dark;
 
-class AppTheme extends StatelessWidget {
-  AppTheme({this.child});
+class AppUI extends StatelessWidget {
+  AppUI({this.child});
 
   final Widget child;
 
@@ -32,11 +34,12 @@ class AppTheme extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.orange,
-        accentColor: Colors.purpleAccent,
+        accentColor: Colors.purple,
         indicatorColor: Colors.purpleAccent,
         toggleableActiveColor: Colors.purpleAccent,
       ),
-      home: child,
+      onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
+      initialRoute: '/projects',
     );
   }
 }

@@ -11,8 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/app_theme.dart';
-import 'screens/projects/projects_screen.dart';
+import 'screens/app_ui.dart';
 import 'services/backend_service.dart';
 import 'services/bombar_client.dart';
 import 'services/dependency_service.dart';
@@ -37,9 +36,7 @@ class BomBarApplication extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => _projectService),
         ChangeNotifierProvider(create: (_) => _dependencyService),
       ],
-      child: AppTheme(
-        child: ProjectsScreen(),
-      ),
+      child: AppUI(),
     );
   }
 }

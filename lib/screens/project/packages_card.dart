@@ -62,7 +62,7 @@ class _PackagesCardState extends State<PackagesCard> {
               children: _filtered
                   .map((dep) => DependencyTile(
                         dep,
-                        onSelect: () => service.id = dep.id,
+                        onSelect: () => widget.onSelect(dep),
                       ))
                   .toList(),
             ),

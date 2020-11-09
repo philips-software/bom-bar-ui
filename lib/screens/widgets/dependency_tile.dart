@@ -27,7 +27,9 @@ class DependencyTile extends StatelessWidget {
       dense: true,
       leading: RelationWidget(dep),
       title: Text('${dep.title} - ${dep.version}'),
-      subtitle: Text('License: ${dep.license}'),
+      subtitle: dep.license.isNotEmpty
+          ? Text('License: ${dep.license}')
+          : Text('(No license)'),
       trailing: (hasId) ? Icon(Icons.chevron_right) : null,
       onTap: (hasId) ? onSelect : null,
     );

@@ -36,14 +36,11 @@ class DependencyService extends ChangeNotifier {
   final BomBarClient _client;
   Dependency current;
 
-  //TODO change to select(String value)
-  set id(String value) {
+  Future<void> select(String id) async {
     if (_projectService.current == null) return;
 
-    _client.getDependency(_projectService.current.id, value).then((dep) {
-      current = dep;
-      log('Selected dependency $value');
-      notifyListeners();
-    }).catchError((error) => log(error.toString()));
+    current = await _client.getDependency(_projectService.current.id, id);
+    log('Selected dependency $id');
+    notifyListeners();
   }
 }

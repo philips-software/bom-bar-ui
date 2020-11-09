@@ -32,7 +32,7 @@ class DependenciesCard extends StatelessWidget {
           ...dependencies
               .map((dep) => DependencyTile(
                     dep,
-                    onSelect: () => service.id = dep.id,
+                    onSelect: () => service.select(dep.id),
                   ))
               .toList(growable: false),
         ],

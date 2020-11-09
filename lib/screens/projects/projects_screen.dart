@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import '../../model/project.dart';
 import '../../services/backend_service.dart';
 import '../../services/project_service.dart';
-import '../project/project_screen.dart';
 import '../widgets/snapshot_widget.dart';
 import 'projects_list.dart';
 
@@ -61,9 +60,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         projects = backendService.projects();
       });
     });
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => ProjectScreen()),
-    );
+    Navigator.pushNamed(context, '/project');
   }
 }

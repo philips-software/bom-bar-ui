@@ -23,9 +23,12 @@ class EditTextDialog {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
+        content: SizedBox(
+          width: 300,
+          child: TextField(
+            controller: controller,
+            autofocus: true,
+          ),
         ),
         actions: [
           TextButton(
