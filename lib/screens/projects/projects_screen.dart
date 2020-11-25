@@ -8,11 +8,13 @@
  * All Rights Reserved
  */
 
+import 'package:bom_bar_ui/screens/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/project.dart';
 import '../../services/backend_service.dart';
 import '../../services/project_service.dart';
+import '../app_routes.dart';
 import '../widgets/snapshot_widget.dart';
 import 'projects_list.dart';
 
@@ -40,6 +42,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       appBar: AppBar(
         title: Text('All projects'),
       ),
+      drawer: AppDrawer(),
       body: FutureBuilder(
         future: projects,
         builder: (context, snapshot) => SnapshotWidget(
@@ -60,6 +63,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         projects = backendService.projects();
       });
     });
-    Navigator.pushNamed(context, '/project');
+    Navigator.pushNamed(context, projectRoute);
   }
 }

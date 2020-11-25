@@ -8,6 +8,8 @@
  * All Rights Reserved
  */
 
+import 'package:bom_bar_ui/screens/app_routes.dart';
+import 'package:bom_bar_ui/screens/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +31,7 @@ class ProjectScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Project'),
       ),
+      drawer: AppDrawer(),
       body: Consumer<ProjectService>(
         builder: (context, service, child) => service.current == null
             ? Center(child: CircularProgressIndicator())
@@ -52,7 +55,7 @@ class ProjectScreen extends StatelessWidget {
                                   dependencyService.select(d.id).then((_) {
                                     if (!isWide) {
                                       Navigator.pushNamed(
-                                          context, '/dependency');
+                                          context, dependencyRoute);
                                     }
                                   });
                                 },

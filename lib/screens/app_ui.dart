@@ -8,13 +8,9 @@
  * All Rights Reserved
  */
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'app_routes.dart';
-
-const themeMode = ThemeMode.light;
-// const themeMode = ThemeMode.dark;
 
 class AppUI extends StatelessWidget {
   AppUI({this.child});
@@ -25,7 +21,7 @@ class AppUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BOM-bar',
-      themeMode: kDebugMode ? themeMode : ThemeMode.system,
+      // themeMode: ThemeMode.light,
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.purple,
@@ -34,12 +30,11 @@ class AppUI extends StatelessWidget {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.orange,
-        accentColor: Colors.purple,
-        indicatorColor: Colors.purpleAccent,
-        toggleableActiveColor: Colors.purpleAccent,
+        accentColor: Colors.purpleAccent[100],
+        indicatorColor: Colors.purpleAccent[100],
+        toggleableActiveColor: Colors.purpleAccent[100],
       ),
-      onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
-      initialRoute: '/projects',
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }

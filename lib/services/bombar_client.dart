@@ -10,6 +10,7 @@
 
 import 'dart:developer';
 
+import 'package:bom_bar_ui/model/package.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:flutter/foundation.dart';
@@ -23,6 +24,8 @@ class BomBarClient {
   static final baseUrl =
       Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:8081', '/');
   static final projectsUrl = baseUrl.resolve('projects/');
+  static final packagesUrl = baseUrl.resolve('packages/');
+
   final _dio = Dio()..transformer = FlutterTransformer();
 
   BomBarClient() {
@@ -66,5 +69,10 @@ class BomBarClient {
     final response =
         await _dio.getUri(projectsUrl.resolve('$projectId/dependencies/$id'));
     return toDependency(response.data);
+  }
+
+  Future<List<Package>> findPackagesById({String filter}) async {
+    final response = await _dio.getUri(packagesUrl.resolve('?id=$filter'));
+    return toPackageList(response.data['results']);
   }
 }

@@ -7,6 +7,7 @@
  *
  * All Rights Reserved
  */
+import 'package:bom_bar_ui/model/package.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -22,4 +23,7 @@ class BackendService {
   final BomBarClient client;
 
   Future<List<Project>> projects() async => client.getProjects();
+
+  Future<List<Package>> packages(String fragment) async =>
+      client.findPackagesById(filter: fragment);
 }
