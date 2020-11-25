@@ -75,4 +75,9 @@ class BomBarClient {
     final response = await _dio.getUri(packagesUrl.resolve('?id=$filter'));
     return toPackageList(response.data['results']);
   }
+
+  Future<Package> getPackage(String id) async {
+    final response = await _dio.getUri(packagesUrl.resolve(id));
+    return toPackage(response.data);
+  }
 }

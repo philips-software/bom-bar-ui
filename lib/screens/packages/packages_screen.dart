@@ -14,6 +14,7 @@ import 'package:bom_bar_ui/screens/widgets/snapshot_widget.dart';
 import 'package:bom_bar_ui/services/backend_service.dart';
 import 'package:flutter/material.dart';
 
+import '../app_routes.dart';
 import 'name_filter.dart';
 
 class PackagesScreen extends StatefulWidget {
@@ -44,11 +45,18 @@ class _PackagesScreenState extends State<PackagesScreen> {
             return (list.isNotEmpty)
                 ? ListView.builder(
                     itemCount: list.length,
-                    itemBuilder: (context, index) => ListTile(
-                      leading: Icon(Icons.folder),
-                      title: Text(list[index].title),
-                      subtitle: Text(list[index].vendor),
-                    ),
+                    itemBuilder: (context, index) {
+                      final package = list[index];
+
+                      return ListTile(
+                        leading: Icon(Icons.folder),
+                        title: Text(package.title),
+                        subtitle: Text(package.vendor),
+                        onTap: () => Navigator.popAndPushNamed(
+                            context, packageRoute,
+                            arguments: package.id),
+                      );
+                    },
                   )
                 : Center(child: Text('(No matching packages found)'));
           },

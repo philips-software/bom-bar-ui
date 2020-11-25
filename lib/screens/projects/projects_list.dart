@@ -12,7 +12,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/project.dart';
-import '../../services/project_service.dart';
 import '../app_routes.dart';
 
 class ProjectsList extends StatelessWidget {
@@ -22,8 +21,6 @@ class ProjectsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = ProjectService.of(context);
-
     return ListView.builder(
       itemCount: projects.length,
       itemBuilder: (context, index) {
@@ -41,8 +38,8 @@ class ProjectsList extends StatelessWidget {
             title: Text(project.title),
             subtitle: Text('Phase: ${project.phase.name}'),
             onTap: () {
-              service.select(project.id);
-              Navigator.popAndPushNamed(context, projectRoute);
+              Navigator.popAndPushNamed(context, projectRoute,
+                  arguments: project.id);
             },
           ),
         );

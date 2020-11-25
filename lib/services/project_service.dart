@@ -25,29 +25,31 @@ class ProjectService extends ChangeNotifier {
   ProjectService({BomBarClient client}) : _client = client ?? BomBarClient();
 
   final BomBarClient _client;
-  Project current;
+  Project _current;
+
+  Project get current => _current;
 
   Future<void> createNew() async {
-    current = await _client.createProject();
-    log('Created new project ${current.id}');
+    _current = await _client.createProject();
+    log('Created new project ${_current.id}');
     notifyListeners();
   }
 
   Future<void> select(String id) async {
-    current = await _client.getProject(id);
+    _current = await _client.getProject(id);
     log('Selected project $id');
     notifyListeners();
   }
 
   Future<void> update(Project update) async {
-    current = await _client.updateProject(update);
-    log('Updated project ${current.id}');
+    _current = await _client.updateProject(update);
+    log('Updated project ${_current.id}');
     notifyListeners();
   }
 
   Future<void> uploadSpdx() async {
-    await _client.uploadSpdx(current.id);
+    await _client.uploadSpdx(_current.id);
     log('Uploaded SPDX file');
-    select(current.id);
+    select(_current.id);
   }
 }
