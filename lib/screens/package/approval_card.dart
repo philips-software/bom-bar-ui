@@ -36,7 +36,7 @@ class ApprovalCard extends StatelessWidget {
       values: _approvalMapping,
       selection: package.approval,
     ).show(context);
-    if (update != package.approval) {
+    if (update != null && update != package.approval) {
       PackageService.of(context).approval = update;
     }
   }
@@ -45,6 +45,6 @@ class ApprovalCard extends StatelessWidget {
 final _approvalMapping = {
   Approval.context: 'Depends on context (default)',
   Approval.confirmation: 'Requires confirmation',
-  Approval.rejected: 'Never approved',
-  Approval.accepted: 'Always approved',
+  Approval.rejected: 'Never allowed',
+  Approval.accepted: 'Always allowed',
 };

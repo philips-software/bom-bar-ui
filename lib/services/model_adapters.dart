@@ -31,6 +31,7 @@ Project toProject(Map<String, Object> map) => Project(
       phase: toPhase(map['phase']),
       issueCount: map['issues'] ?? 0,
       dependencies: toDependencyList(map['packages'] ?? []),
+      exemptions: toStringList(map['exemptions'] ?? []),
     );
 
 DateTime toDateTime(String iso) {
@@ -77,6 +78,7 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
       licenseIssues: toStringList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['dependencies'] ?? []),
       usages: toDependencyList(map['usages'] ?? []),
+      package: (map['package'] != null) ? toPackage(map['package']) : null,
     );
 
 Package toPackage(Map<String, Object> map) => Package(

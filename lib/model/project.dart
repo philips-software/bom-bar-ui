@@ -21,6 +21,7 @@ class Project {
     this.phase,
     this.issueCount,
     this.dependencies,
+    this.exemptions,
   });
 
   final String id;
@@ -30,6 +31,7 @@ class Project {
   final Phase phase;
   final int issueCount;
   final List<Dependency> dependencies;
+  final List<String> exemptions;
 }
 
 enum Distribution { open_source, internal, saas, proprietary, unknown }

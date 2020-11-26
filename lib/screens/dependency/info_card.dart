@@ -8,6 +8,8 @@
  * All Rights Reserved
  */
 
+import 'package:bom_bar_ui/screens/app_routes.dart';
+import 'package:bom_bar_ui/screens/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/dependency.dart';
@@ -44,6 +46,13 @@ class InfoCard extends StatelessWidget {
                   : '(No license)'),
             ],
           ),
+          trailing: (dependency.package != null)
+              ? ActionButton(
+                  icon: Icons.chevron_right,
+                  onPressed: () => Navigator.of(context).pushNamed(packageRoute,
+                      arguments: dependency.package.id),
+                )
+              : null,
         ),
       ],
     ));

@@ -8,6 +8,8 @@
  * All Rights Reserved
  */
 
+import 'package.dart';
+
 class Dependency {
   Dependency({
     this.id,
@@ -20,6 +22,7 @@ class Dependency {
     this.licenseIssues = const [],
     this.dependencies = const [],
     this.usages = const [],
+    this.package,
   });
 
   final String id;
@@ -32,6 +35,7 @@ class Dependency {
   final List<String> licenseIssues;
   final List<Dependency> dependencies;
   final List<Dependency> usages;
+  final Package package;
 
   int get totalIssues {
     return issueCount +
