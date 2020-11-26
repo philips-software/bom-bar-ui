@@ -29,6 +29,13 @@ class PackageService extends ChangeNotifier {
 
   Package get current => _current;
 
+  set approval(Approval approval) {
+    _client.setApproval(_current.id, approval).then((_) {
+      _current.approval = approval;
+      notifyListeners();
+    });
+  }
+
   Future<void> select(String id) async {
     _current = await _client.getPackage(id);
     log('Selected package $id');

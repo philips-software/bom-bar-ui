@@ -15,7 +15,7 @@ class ActionButton extends StatelessWidget {
   ActionButton({this.icon = Icons.edit, this.onPressed});
 
   final IconData icon;
-  final Function onPressed;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {

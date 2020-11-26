@@ -9,6 +9,7 @@
  */
 
 import 'package:bom_bar_ui/model/package.dart';
+import 'package:bom_bar_ui/screens/package/approval_card.dart';
 import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
@@ -22,9 +23,12 @@ class InfoCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            title: Text(package.title),
+            leading: Icon(Icons.info),
+            title: Text(package.title,
+                style: Theme.of(context).textTheme.headline4),
             subtitle: Text(package.vendor),
           ),
+          ApprovalCard(package),
         ],
       ),
     );

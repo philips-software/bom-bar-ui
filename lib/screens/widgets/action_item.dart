@@ -17,7 +17,7 @@ class ActionItem extends StatelessWidget {
 
   final Widget child;
   final IconData icon;
-  final Function onPressed;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {

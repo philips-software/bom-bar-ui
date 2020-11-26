@@ -7,6 +7,8 @@
  *
  * All Rights Reserved
  */
+import 'dart:developer';
+
 import 'package:bom_bar_ui/model/package.dart';
 
 import '../model/dependency.dart';
@@ -82,6 +84,7 @@ Package toPackage(Map<String, Object> map) => Package(
       title: map['name'] ?? '?',
       vendor: map['vendor'] ?? '(unknown)',
       homepage: toUrl(map['homepage']),
+      approval: toApproval(map['approval'] ?? '?'),
     );
 
 List<Package> toPackageList(List<dynamic> list) =>
@@ -94,3 +97,19 @@ List<Dependency> toDependencyList(List<dynamic> list) =>
 
 List<String> toStringList(List<Object> list) =>
     list.map((s) => s.toString()).toList(growable: false);
+
+Approval toApproval(String approval) {
+  switch (approval) {
+    case 'context':
+      return Approval.context;
+    case 'rejected':
+      return Approval.rejected;
+    case 'needs_approval':
+      return Approval.confirmation;
+    case 'approved':
+      return Approval.accepted;
+    default:
+      log('Adapting approval "$approval"', error: 'No mapping defined');
+      return Approval.context;
+  }
+}

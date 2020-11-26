@@ -25,6 +25,12 @@ class BomBarClient {
       Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:8081', '/');
   static final projectsUrl = baseUrl.resolve('projects/');
   static final packagesUrl = baseUrl.resolve('packages/');
+  static final _approvals = {
+    Approval.context: 'context',
+    Approval.rejected: 'rejected',
+    Approval.confirmation: 'needs_approval',
+    Approval.accepted: 'approved',
+  };
 
   final _dio = Dio()..transformer = FlutterTransformer();
 
@@ -79,5 +85,10 @@ class BomBarClient {
   Future<Package> getPackage(String id) async {
     final response = await _dio.getUri(packagesUrl.resolve(id));
     return toPackage(response.data);
+  }
+
+  Future<void> setApproval(String packageId, Approval approval) {
+    final value = _approvals[approval];
+    return _dio.postUri(packagesUrl.resolve('$packageId/approve/$value'));
   }
 }
