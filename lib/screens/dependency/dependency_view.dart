@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../../services/dependency_service.dart';
 import 'dependencies_card.dart';
 import 'info_card.dart';
+import 'issues_card.dart';
 
 class DependencyView extends StatefulWidget {
   @override
@@ -48,6 +49,8 @@ class _DependencyViewState extends State<DependencyView>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InfoCard(dependency),
+                  if (dependency.licenseIssues.isNotEmpty)
+                    IssuesCard(dependency.licenseIssues),
                   TabBar(
                     controller: _controller,
                     tabs: [
@@ -70,18 +73,6 @@ class _DependencyViewState extends State<DependencyView>
                   ),
                 ],
               );
-        // SingleChildScrollView(
-        //         child: Column(children: [
-        //           InfoCard(dependency),
-        //           if (dependency.licenseIssues.isNotEmpty)
-        //             IssuesCard(dependency.licenseIssues),
-        //           if (dependency.dependencies.isNotEmpty)
-        //             DependenciesCard(dependency.dependencies,
-        //                 title: 'Depends on'),
-        //           if (dependency.usages.isNotEmpty)
-        //             DependenciesCard(dependency.usages, title: 'Dependency of'),
-        //         ]),
-        //       );
       },
     );
   }
