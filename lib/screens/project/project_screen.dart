@@ -63,9 +63,7 @@ class ProjectScreen extends StatelessWidget {
                             ),
                           if (isWide)
                             Flexible(
-                              child: SingleChildScrollView(
-                                child: DependencyView(),
-                              ),
+                              child: DependencyView(),
                             ),
                         ]),
                   ),

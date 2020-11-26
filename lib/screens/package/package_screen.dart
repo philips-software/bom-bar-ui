@@ -18,11 +18,13 @@ import 'info_card.dart';
 class PackageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isRoot = !Navigator.of(context).canPop();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Package'),
       ),
-      drawer: AppDrawer(),
+      drawer: isRoot ? AppDrawer() : null,
       body: Consumer<PackageService>(
         builder: (context, service, _) => (service.current == null)
             ? Center(child: CircularProgressIndicator())

@@ -13,9 +13,28 @@ import 'package:provider/provider.dart';
 import '../../services/dependency_service.dart';
 import 'dependencies_card.dart';
 import 'info_card.dart';
-import 'issues_card.dart';
 
-class DependencyView extends StatelessWidget {
+class DependencyView extends StatefulWidget {
+  @override
+  _DependencyViewState createState() => _DependencyViewState();
+}
+
+class _DependencyViewState extends State<DependencyView>
+    with TickerProviderStateMixin {
+  TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<DependencyService>(
@@ -23,18 +42,46 @@ class DependencyView extends StatelessWidget {
         final dependency = service.current;
         return dependency == null
             ? Container()
-            : SingleChildScrollView(
-                child: Column(children: [
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                   InfoCard(dependency),
-                  if (dependency.licenseIssues.isNotEmpty)
-                    IssuesCard(dependency.licenseIssues),
-                  if (dependency.dependencies.isNotEmpty)
-                    DependenciesCard(dependency.dependencies,
-                        title: 'Depends on'),
-                  if (dependency.usages.isNotEmpty)
-                    DependenciesCard(dependency.usages, title: 'Dependency of'),
-                ]),
+                  TabBar(
+                    controller: _controller,
+                    tabs: [
+                      Text('Depends on'),
+                      Text('Dependency of'),
+                    ],
+                  ),
+                  Flexible(
+                    child: Card(
+                      child: TabBarView(
+                        controller: _controller,
+                        children: [
+                          DependenciesCard(dependency.dependencies,
+                              title: 'Depends on'),
+                          DependenciesCard(dependency.usages,
+                              title: 'Dependency of'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               );
+        // SingleChildScrollView(
+        //         child: Column(children: [
+        //           InfoCard(dependency),
+        //           if (dependency.licenseIssues.isNotEmpty)
+        //             IssuesCard(dependency.licenseIssues),
+        //           if (dependency.dependencies.isNotEmpty)
+        //             DependenciesCard(dependency.dependencies,
+        //                 title: 'Depends on'),
+        //           if (dependency.usages.isNotEmpty)
+        //             DependenciesCard(dependency.usages, title: 'Dependency of'),
+        //         ]),
+        //       );
       },
     );
   }

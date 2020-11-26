@@ -25,18 +25,16 @@ class DependenciesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final service = DependencyService.of(context);
 
-    return Card(
-      child: Column(
-        children: [
-          ListTile(title: Text(title)),
-          ...dependencies
-              .map((dep) => DependencyTile(
-                    dep,
-                    onSelect: () => service.select(dep.id),
-                  ))
-              .toList(growable: false),
-        ],
-      ),
-    );
+    return dependencies.isNotEmpty
+        ? ListView.builder(
+            itemCount: dependencies.length,
+            itemBuilder: (context, index) {
+              final dependency = dependencies[index];
+              return DependencyTile(
+                dependency,
+                onSelect: () => service.select(dependency.id),
+              );
+            })
+        : Center(child: Text('(None)'));
   }
 }
