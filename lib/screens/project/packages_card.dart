@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../model/dependency.dart';
-import '../../services/dependency_service.dart';
 import '../widgets/dependency_tile.dart';
 import 'filter_field.dart';
 
@@ -27,25 +26,17 @@ class PackagesCard extends StatefulWidget {
 }
 
 class _PackagesCardState extends State<PackagesCard> {
-  List<Dependency> _filtered;
-
-  @override
-  void initState() {
-    super.initState();
-    _filtered = widget.dependencies;
-  }
-
-  @override
-  void didUpdateWidget(PackagesCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _filtered = widget.dependencies;
-  }
+  String _filter = '';
+  bool _onlyErrors = false;
 
   @override
   Widget build(BuildContext context) {
-    final service = DependencyService.of(context);
-    final packageCount = (_filtered.length != widget.dependencies.length)
-        ? '${_filtered.length}/${widget.dependencies.length}'
+    final filtered = widget.dependencies
+        .where((dep) => dep.title.toLowerCase().contains(_filter))
+        .where((dep) => !_onlyErrors || dep.issueCount > 0)
+        .toList(growable: false);
+    final packageCount = (filtered.length != widget.dependencies.length)
+        ? '${filtered.length}/${widget.dependencies.length}'
         : widget.dependencies.length.toString();
 
     return Card(
@@ -55,11 +46,11 @@ class _PackagesCardState extends State<PackagesCard> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ListTile(title: Text('Packages ($packageCount)')),
-          FilterField(onChanged: _filter),
+          FilterField(onChanged: _onFilterChange),
           Flexible(
             child: ListView(
               padding: EdgeInsets.zero,
-              children: _filtered
+              children: filtered
                   .map((dep) => DependencyTile(
                         dep,
                         onSelect: () => widget.onSelect(dep),
@@ -72,13 +63,10 @@ class _PackagesCardState extends State<PackagesCard> {
     );
   }
 
-  void _filter(String filter, bool onlyErrors) {
-    filter = filter.toLowerCase();
+  void _onFilterChange(String filter, bool onlyErrors) {
     setState(() {
-      _filtered = widget.dependencies
-          .where((dep) => dep.title.toLowerCase().contains(filter))
-          .where((dep) => !onlyErrors || dep.issueCount > 0)
-          .toList(growable: false);
+      _filter = filter.toLowerCase();
+      _onlyErrors = onlyErrors;
     });
   }
 }
