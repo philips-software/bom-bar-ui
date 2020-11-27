@@ -25,50 +25,64 @@ class ProjectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isWide = MediaQuery.of(context).size.width > 1000;
+    final service = ProjectService.of(context);
     final dependencyService = DependencyService.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Project'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: (service.current != null)
+                ? () => service.select(service.current.id)
+                : null,
+          )
+        ],
       ),
       drawer: AppDrawer(),
       body: Consumer<ProjectService>(
-        builder: (context, service, child) => service.current == null
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InfoCard(service.current),
-                  Expanded(
-                    child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (service.current.dependencies.isNotEmpty)
-                            Flexible(
-                              child: PackagesCard(
-                                service.current.dependencies,
-                                onSelect: (d) {
-                                  dependencyService.select(d.id).then((_) {
-                                    if (!isWide) {
-                                      Navigator.pushNamed(
-                                          context, dependencyRoute);
-                                    }
-                                  });
-                                },
-                              ),
-                            ),
-                          if (isWide)
-                            Flexible(
-                              child: DependencyView(),
-                            ),
-                        ]),
-                  ),
-                ],
+        builder: (context, service, child) {
+          if (service.error != null) {
+            return ErrorWidget(service.error);
+          }
+          if (service.current == null) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InfoCard(service.current),
+              Expanded(
+                child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (service.current.dependencies.isNotEmpty)
+                        Flexible(
+                          child: PackagesCard(
+                            service.current.dependencies,
+                            onSelect: (d) {
+                              dependencyService.select(d.id).then((_) {
+                                if (!isWide) {
+                                  Navigator.pushNamed(context, dependencyRoute);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      if (isWide)
+                        Flexible(
+                          child: DependencyView(),
+                        ),
+                    ]),
               ),
+            ],
+          );
+        },
       ),
     );
   }

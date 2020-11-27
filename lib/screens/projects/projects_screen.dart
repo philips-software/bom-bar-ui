@@ -57,12 +57,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
     );
   }
 
-  void _createProject(BuildContext context) {
-    projectService.createNew().then((_) {
-      setState(() {
-        projects = backendService.projects();
-      });
-    });
-    Navigator.pushNamed(context, projectRoute);
+  Future<void> _createProject(BuildContext context) async {
+    await projectService.createNew();
+    Navigator.pushNamed(context, projectRoute,
+        arguments: projectService.current.id);
+    setState(() {});
   }
 }

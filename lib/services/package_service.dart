@@ -26,6 +26,7 @@ class PackageService extends ChangeNotifier {
 
   final BomBarClient _client;
   Package _current;
+  String error;
 
   Package get current => _current;
 
@@ -36,9 +37,21 @@ class PackageService extends ChangeNotifier {
     });
   }
 
-  Future<void> select(String id) async {
-    _current = await _client.getPackage(id);
-    log('Selected package $id');
-    notifyListeners();
+  Future<void> select(String id) => _execute(() async {
+        _current = null;
+        _current = await _client.getPackage(id);
+        log('Selected package $id');
+      });
+
+  Future<T> _execute<T>(Future<T> Function() func) async {
+    try {
+      error = null;
+      return await func();
+    } catch (e) {
+      error = e.toString();
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
   }
 }

@@ -26,30 +26,42 @@ class ProjectService extends ChangeNotifier {
 
   final BomBarClient _client;
   Project _current;
+  String error;
 
   Project get current => _current;
 
-  Future<void> createNew() async {
-    _current = await _client.createProject();
-    log('Created new project ${_current.id}');
-    notifyListeners();
-  }
+  Future<void> createNew() => _execute(() async {
+        _current = null;
+        _current = await _client.createProject();
+        log('Created new project ${_current.id}');
+      });
 
-  Future<void> select(String id) async {
-    _current = await _client.getProject(id);
-    log('Selected project $id');
-    notifyListeners();
-  }
+  Future<void> select(String id) => _execute(() async {
+        _current = null;
+        _current = await _client.getProject(id);
+        log('Selected project $id');
+      });
 
-  Future<void> update(Project update) async {
-    _current = await _client.updateProject(update);
-    log('Updated project ${_current.id}');
-    notifyListeners();
-  }
+  Future<void> update(Project update) => _execute(() async {
+        _current = await _client.updateProject(update);
+        log('Updated project ${_current.id}');
+      });
 
-  Future<void> uploadSpdx() async {
-    await _client.uploadSpdx(_current.id);
-    log('Uploaded SPDX file');
-    select(_current.id);
+  Future<void> uploadSpdx() => _execute(() async {
+        await _client.uploadSpdx(_current.id);
+        log('Uploaded SPDX file');
+        select(_current.id);
+      });
+
+  Future<T> _execute<T>(Future<T> Function() func) async {
+    try {
+      error = null;
+      return await func();
+    } catch (e) {
+      error = e.toString();
+      rethrow;
+    } finally {
+      notifyListeners();
+    }
   }
 }

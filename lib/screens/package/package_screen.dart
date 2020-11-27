@@ -26,13 +26,19 @@ class PackageScreen extends StatelessWidget {
       ),
       drawer: isRoot ? AppDrawer() : null,
       body: Consumer<PackageService>(
-        builder: (context, service, _) => (service.current == null)
-            ? Center(child: CircularProgressIndicator())
-            : ListView(
-                children: [
-                  InfoCard(service.current),
-                ],
-              ),
+        builder: (context, service, _) {
+          if (service.error != null) {
+            return ErrorWidget(service.error);
+          }
+          if (service.current == null) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return Column(
+            children: [
+              InfoCard(service.current),
+            ],
+          );
+        },
       ),
     );
   }
