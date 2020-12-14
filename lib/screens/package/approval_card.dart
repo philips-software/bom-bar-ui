@@ -47,4 +47,5 @@ final _approvalMapping = {
   Approval.confirmation: 'Requires confirmation',
   Approval.rejected: 'Never allowed',
   Approval.accepted: 'Always allowed',
+  Approval.noPackage: 'Not a valid package',
 };

@@ -110,6 +110,8 @@ Approval toApproval(String approval) {
       return Approval.confirmation;
     case 'approved':
       return Approval.accepted;
+    case 'not_a_package':
+      return Approval.noPackage;
     default:
       log('Adapting approval "$approval"', error: 'No mapping defined');
       return Approval.context;

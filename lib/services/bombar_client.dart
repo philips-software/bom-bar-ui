@@ -30,6 +30,7 @@ class BomBarClient {
     Approval.rejected: 'rejected',
     Approval.confirmation: 'needs_approval',
     Approval.accepted: 'approved',
+    Approval.noPackage: 'not_a_package',
   };
 
   final _dio = Dio()..transformer = FlutterTransformer();

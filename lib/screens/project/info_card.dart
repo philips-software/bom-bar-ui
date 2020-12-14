@@ -40,7 +40,10 @@ class InfoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ActionItem(
-                  child: Text(project.title, style: style.headline4),
+                  child: Text(
+                    project.title.isNotEmpty ? project.title : '(Untitled)',
+                    style: style.headline4,
+                  ),
                   onPressed: () => _editTitle(context),
                 ),
                 if (project.issueCount > 0)

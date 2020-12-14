@@ -10,12 +10,15 @@
 
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../model/project.dart';
 import '../app_routes.dart';
 
 class ProjectsList extends StatelessWidget {
   ProjectsList(this.projects, {Key key}) : super(key: key);
+
+  static final dateFormat = DateFormat.yMMMMEEEEd().add_Hm();
 
   final List<Project> projects;
 
@@ -25,6 +28,10 @@ class ProjectsList extends StatelessWidget {
       itemCount: projects.length,
       itemBuilder: (context, index) {
         final project = projects[index];
+        final lastUpdate = (project.lastUpdate != null)
+            ? dateFormat.format(project.lastUpdate)
+            : '(never)';
+
         return Material(
           child: ListTile(
             leading: Badge(
@@ -35,8 +42,13 @@ class ProjectsList extends StatelessWidget {
               showBadge: project.issueCount > 0,
               child: Icon(Icons.home),
             ),
-            title: Text(project.title),
-            subtitle: Text('Phase: ${project.phase.name}'),
+            title:
+                Text(project.title.isNotEmpty ? project.title : '(Untitled)'),
+            subtitle: Text(
+              'Updated: $lastUpdate\n'
+              'Phase: ${project.phase.name}',
+            ),
+            isThreeLine: true,
             onTap: () {
               Navigator.popAndPushNamed(context, projectRoute,
                   arguments: project.id);

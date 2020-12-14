@@ -29,6 +29,7 @@ enum Approval {
   confirmation,
   accepted,
   context,
+  noPackage,
 }
 
 extension ApprovalName on Approval {
