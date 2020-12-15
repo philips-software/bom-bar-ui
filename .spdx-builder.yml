@@ -1,0 +1,7 @@
+document:
+  title: "BOM-bar user interface"
+  organization: "Philips"
+projects:
+  - id: "Pub:bom_bar_ui:bom_bar_ui:0.1.0+4"
+    excluded:
+      - "dev*"

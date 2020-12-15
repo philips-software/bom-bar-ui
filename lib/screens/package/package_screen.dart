@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'info_card.dart';
+import 'projects_card.dart';
 
 class PackageScreen extends StatelessWidget {
   @override
@@ -36,6 +37,7 @@ class PackageScreen extends StatelessWidget {
           return Column(
             children: [
               InfoCard(service.current),
+              Flexible(child: ProjectsCard(service.current)),
             ],
           );
         },

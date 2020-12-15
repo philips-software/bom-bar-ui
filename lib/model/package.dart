@@ -8,6 +8,8 @@
  * All Rights Reserved
  */
 
+import 'project.dart';
+
 class Package {
   Package({
     this.id,
@@ -15,6 +17,7 @@ class Package {
     this.vendor,
     this.homepage,
     this.approval = Approval.context,
+    this.projects,
   });
 
   final String id;
@@ -22,6 +25,7 @@ class Package {
   final String vendor;
   final Uri homepage;
   Approval approval;
+  final List<Project> projects;
 }
 
 enum Approval {

@@ -71,8 +71,8 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
       id: map['id'],
       title: map['title'] ?? '?',
       purl: toUrl(map['purl']),
-      version: map['version'] ?? '',
-      license: map['license'] ?? '',
+      version: map['version'] ?? '?',
+      license: map['license'] ?? '?',
       relation: map['relation'],
       issueCount: map['issues'] ?? 0,
       licenseIssues: toStringList(map['license_issues'] ?? []),
@@ -82,11 +82,12 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
     );
 
 Package toPackage(Map<String, Object> map) => Package(
-      id: map['id'],
+      id: map['id'] ?? '?',
       title: map['name'] ?? '?',
       vendor: map['vendor'] ?? '(unknown)',
       homepage: toUrl(map['homepage']),
       approval: toApproval(map['approval'] ?? '?'),
+      projects: toProjectList(map['projects'] ?? []),
     );
 
 List<Package> toPackageList(List<dynamic> list) =>
