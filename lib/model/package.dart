@@ -17,6 +17,7 @@ class Package {
     this.vendor,
     this.homepage,
     this.approval = Approval.context,
+    this.exemptions,
     this.projects,
   });
 
@@ -25,6 +26,7 @@ class Package {
   final String vendor;
   final Uri homepage;
   Approval approval;
+  final List<String> exemptions;
   final List<Project> projects;
 }
 

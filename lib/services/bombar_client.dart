@@ -101,4 +101,10 @@ class BomBarClient {
     final value = _approvals[approval];
     return _dio.postUri(packagesUrl.resolve('$packageId/approve/$value'));
   }
+
+  exemptLicense(String packageId, String license) =>
+      _dio.postUri(packagesUrl.resolve('$packageId/exempt/$license'));
+
+  unExemptLicense(String packageId, String license) =>
+      _dio.deleteUri(packagesUrl.resolve('$packageId/exempt/$license'));
 }

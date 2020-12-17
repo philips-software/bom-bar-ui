@@ -43,6 +43,18 @@ class PackageService extends ChangeNotifier {
         log('Selected package $id');
       });
 
+  Future<void> exempt(String license) => _execute(() async {
+        await _client.exemptLicense(_current.id, license);
+        log('Exempted $license for ${_current.id}');
+        _current = await _client.getPackage(_current.id);
+      });
+
+  Future<void> unExempt(String license) => _execute(() async {
+        await _client.unExemptLicense(_current.id, license);
+        log('Un-exempted $license for ${_current.id}');
+        _current = await _client.getPackage(_current.id);
+      });
+
   Future<T> _execute<T>(Future<T> Function() func) async {
     try {
       error = null;

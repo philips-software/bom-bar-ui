@@ -7,6 +7,7 @@
  *
  * All Rights Reserved
  */
+import 'package:bom_bar_ui/screens/widgets/shared.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/package.dart';
@@ -14,8 +15,8 @@ import '../../services/package_service.dart';
 import '../widgets/action_item.dart';
 import '../widgets/edit_selection_dialog.dart';
 
-class ApprovalCard extends StatelessWidget {
-  ApprovalCard(this.package);
+class ApprovalTile extends StatelessWidget {
+  ApprovalTile(this.package);
 
   final Package package;
 
@@ -26,6 +27,16 @@ class ApprovalCard extends StatelessWidget {
       title: ActionItem(
         child: Text('Approval: ${_approvalMapping[package.approval]}'),
         onPressed: () => _editApproval(context),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: package.exemptions
+            .map((license) => ActionItem(
+                  icon: Icons.clear,
+                  child: Text('Exempted license: $license'),
+                  onPressed: () => _unExempt(context, license),
+                ))
+            .toList(growable: false),
       ),
     );
   }
@@ -40,11 +51,17 @@ class ApprovalCard extends StatelessWidget {
       PackageService.of(context).approval = update;
     }
   }
+
+  void _unExempt(BuildContext context, String license) {
+    PackageService.of(context)
+        .unExempt(license)
+        .catchError((error) => showError(context, error));
+  }
 }
 
 final _approvalMapping = {
   Approval.context: 'Depends on context (default)',
-  Approval.confirmation: 'Requires confirmation',
+  Approval.confirmation: 'Requires per-project exemption',
   Approval.rejected: 'Never allowed',
   Approval.accepted: 'Always allowed',
   Approval.noPackage: 'Not a valid package',

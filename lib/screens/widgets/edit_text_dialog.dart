@@ -11,7 +11,7 @@
 import 'package:flutter/material.dart';
 
 class EditTextDialog {
-  EditTextDialog({this.title, this.value, this.lines = 1});
+  EditTextDialog({@required this.title, this.value = '', this.lines = 1});
 
   final String title;
   final String value;

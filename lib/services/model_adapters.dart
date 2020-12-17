@@ -88,6 +88,7 @@ Package toPackage(Map<String, Object> map) => Package(
       vendor: map['vendor'],
       homepage: toUrl(map['homepage']),
       approval: toApproval(map['approval'] ?? '?'),
+      exemptions: toStringList(map['exemptions'] ?? []),
       projects: toProjectList(map['projects'] ?? []),
     );
 
