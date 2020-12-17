@@ -62,9 +62,7 @@ class FileUploader {
     });
     reader.readAsDataUrl(file);
 
-    return completer.future
-        .whenComplete(() => subscription.cancel())
-        .catchError(() => subscription.cancel());
+    return completer.future.whenComplete(() => subscription.cancel());
   }
 
   Future<void> _uploadDataToServer(
