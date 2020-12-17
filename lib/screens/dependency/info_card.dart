@@ -9,7 +9,6 @@
  */
 
 import 'package:bom_bar_ui/screens/app_routes.dart';
-import 'package:bom_bar_ui/screens/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/dependency.dart';
@@ -31,29 +30,29 @@ class InfoCard extends StatelessWidget {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(dependency.title, style: style.headline4),
-              if (dependency.purl != null)
-                Text(dependency.purl.toString(), style: style.bodyText2),
+              Text(
+                  '${dependency.title} ${dependency.version ?? "(no version)"}',
+                  style: style.headline4),
               Text('SPDX ID: ${dependency.id}'),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(dependency.version.isNotEmpty
-                    ? 'Version: ${dependency.version}'
-                    : '(No version)'),
-              ),
+              if (dependency.purl != null) Text(dependency.purl.toString()),
+              SizedBox(height: 8),
               Text(dependency.license.isNotEmpty
                   ? 'License: ${dependency.license}'
                   : '(No license)'),
             ],
           ),
-          trailing: (dependency.package != null)
-              ? ActionButton(
-                  icon: Icons.chevron_right,
-                  onPressed: () => Navigator.of(context).pushNamed(packageRoute,
-                      arguments: dependency.package.id),
-                )
-              : null,
         ),
+        ButtonBar(
+          children: [
+            if (dependency.package != null)
+              TextButton.icon(
+                icon: Icon(Icons.folder),
+                label: Text('VIEW PACKAGE'),
+                onPressed: () => Navigator.of(context)
+                    .pushNamed(packageRoute, arguments: dependency.package.id),
+              )
+          ],
+        )
       ],
     ));
   }

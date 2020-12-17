@@ -26,7 +26,7 @@ class InfoCard extends StatelessWidget {
             leading: Icon(Icons.info),
             title: Text(package.title,
                 style: Theme.of(context).textTheme.headline4),
-            subtitle: Text(package.vendor),
+            subtitle: Text(package.vendor ?? '(Vendor unknown)'),
           ),
           ApprovalCard(package),
         ],

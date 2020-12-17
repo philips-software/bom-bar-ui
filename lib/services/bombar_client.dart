@@ -78,6 +78,15 @@ class BomBarClient {
     return toDependency(response.data);
   }
 
+  Future<void> exempt(String projectId, String id, String rationale) =>
+      _dio.postUri(
+        projectsUrl.resolve('$projectId/exempt/$id'),
+        data: {'rationale': rationale},
+      );
+
+  Future<void> unexempt(String projectId, String id) =>
+      _dio.deleteUri(projectsUrl.resolve('$projectId/exempt/$id'));
+
   Future<List<Package>> findPackagesById({String filter}) async {
     final response = await _dio.getUri(packagesUrl.resolve('?id=$filter'));
     return toPackageList(response.data['results']);

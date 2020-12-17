@@ -79,12 +79,13 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
       dependencies: toDependencyList(map['dependencies'] ?? []),
       usages: toDependencyList(map['usages'] ?? []),
       package: (map['package'] != null) ? toPackage(map['package']) : null,
+      exemption: map['exemption'],
     );
 
 Package toPackage(Map<String, Object> map) => Package(
       id: map['id'] ?? '?',
       title: map['name'] ?? '?',
-      vendor: map['vendor'] ?? '(unknown)',
+      vendor: map['vendor'],
       homepage: toUrl(map['homepage']),
       approval: toApproval(map['approval'] ?? '?'),
       projects: toProjectList(map['projects'] ?? []),

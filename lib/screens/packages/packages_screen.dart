@@ -51,7 +51,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                       return ListTile(
                         leading: Icon(Icons.folder),
                         title: Text(package.title),
-                        subtitle: Text(package.vendor),
+                        subtitle: Text(package.vendor ?? '(Vendor unknown)'),
                         onTap: () => Navigator.popAndPushNamed(
                             context, packageRoute,
                             arguments: package.id),

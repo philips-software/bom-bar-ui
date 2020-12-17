@@ -16,10 +16,9 @@ import '../../services/dependency_service.dart';
 import '../widgets/dependency_tile.dart';
 
 class DependenciesCard extends StatelessWidget {
-  DependenciesCard(this.dependencies, {this.title = 'Dependencies'});
+  DependenciesCard(this.dependencies);
 
   final List<Dependency> dependencies;
-  final String title;
 
   @override
   Widget build(BuildContext context) {

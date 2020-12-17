@@ -7,6 +7,8 @@
  *
  * All Rights Reserved
  */
+import 'package:badges/badges.dart';
+import 'package:bom_bar_ui/model/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,10 +26,24 @@ class _DependencyViewState extends State<DependencyView>
     with TickerProviderStateMixin {
   TabController _controller;
 
+  final _tabs = {
+    (Dependency _) => Text('Depends on'): (Dependency dependency) =>
+        DependenciesCard(dependency.dependencies),
+    (Dependency _) => Text('Dependency of'): (Dependency dependency) =>
+        DependenciesCard(dependency.usages),
+    (Dependency dependency) => Badge(
+              child: Text('Issues'),
+              badgeContent: Text(dependency.issueCount.toString()),
+              showBadge: dependency.issueCount != 0,
+            ):
+        (Dependency dependency) =>
+            SingleChildScrollView(child: IssuesCard(dependency)),
+  };
+
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: _tabs.length, vsync: this);
   }
 
   @override
@@ -49,25 +65,16 @@ class _DependencyViewState extends State<DependencyView>
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InfoCard(dependency),
-                  if (dependency.licenseIssues.isNotEmpty)
-                    IssuesCard(dependency.licenseIssues),
                   TabBar(
                     controller: _controller,
-                    tabs: [
-                      Text('Depends on'),
-                      Text('Dependency of'),
-                    ],
+                    tabs: _tabs.keys.map((fn) => fn(dependency)).toList(),
                   ),
                   Flexible(
                     child: Card(
                       child: TabBarView(
                         controller: _controller,
-                        children: [
-                          DependenciesCard(dependency.dependencies,
-                              title: 'Depends on'),
-                          DependenciesCard(dependency.usages,
-                              title: 'Dependency of'),
-                        ],
+                        children:
+                            _tabs.values.map((fn) => fn(dependency)).toList(),
                       ),
                     ),
                   ),

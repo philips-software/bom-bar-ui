@@ -43,4 +43,25 @@ class DependencyService extends ChangeNotifier {
     log('Selected dependency $id');
     notifyListeners();
   }
+
+  Future<void> exempt(String rationale) async {
+    if (current?.package == null) {
+      throw new Exception('Cannot exempt dependency without assigned package');
+    }
+    await _client.exempt(
+        _projectService.current.id, current.package.id, rationale);
+    return select(current.id);
+  }
+
+  Future<void> unexempt() async {
+    if (current?.package == null) {
+      throw new Exception(
+          'Cannot unexempt dependency without assigned package');
+    }
+    if (current.exemption == null) {
+      throw new Exception('Nothing to unexempt');
+    }
+    await _client.unexempt(_projectService.current.id, current.package.id);
+    return select(current.id);
+  }
 }

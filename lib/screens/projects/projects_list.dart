@@ -29,7 +29,7 @@ class ProjectsList extends StatelessWidget {
       itemBuilder: (context, index) {
         final project = projects[index];
         final lastUpdate = (project.lastUpdate != null)
-            ? dateFormat.format(project.lastUpdate)
+            ? dateFormat.format(project.lastUpdate.toLocal())
             : '(never)';
 
         return Material(

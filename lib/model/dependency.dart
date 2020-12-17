@@ -23,6 +23,7 @@ class Dependency {
     this.dependencies = const [],
     this.usages = const [],
     this.package,
+    this.exemption,
   });
 
   final String id;
@@ -36,6 +37,7 @@ class Dependency {
   final List<Dependency> dependencies;
   final List<Dependency> usages;
   final Package package;
+  final String exemption;
 
   int get totalIssues {
     return issueCount +

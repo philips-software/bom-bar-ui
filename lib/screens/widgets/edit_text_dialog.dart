@@ -11,10 +11,11 @@
 import 'package:flutter/material.dart';
 
 class EditTextDialog {
-  EditTextDialog({this.title, this.value});
+  EditTextDialog({this.title, this.value, this.lines = 1});
 
   final String title;
   final String value;
+  final int lines;
 
   Future<String> show(BuildContext context) {
     final controller = TextEditingController(text: value);
@@ -28,6 +29,9 @@ class EditTextDialog {
           child: TextField(
             controller: controller,
             autofocus: true,
+            autocorrect: true,
+            minLines: lines,
+            maxLines: lines,
           ),
         ),
         actions: [
