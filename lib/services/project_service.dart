@@ -42,6 +42,12 @@ class ProjectService extends ChangeNotifier {
         log('Selected project $id');
       });
 
+  Future<void> refresh() async {
+    if (current != null) {
+      return select(current.id);
+    }
+  }
+
   Future<void> update(Project update) => _execute(() async {
         _current = await _client.updateProject(update);
         log('Updated project ${_current.id}');

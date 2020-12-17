@@ -34,9 +34,7 @@ class ProjectScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: (service.current != null)
-                ? () => service.select(service.current.id)
-                : null,
+            onPressed: () => service.refresh(),
           )
         ],
       ),
