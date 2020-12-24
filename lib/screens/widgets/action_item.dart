@@ -13,9 +13,14 @@ import 'package:flutter/material.dart';
 import 'action_button.dart';
 
 class ActionItem extends StatelessWidget {
-  ActionItem({this.child, this.icon = Icons.edit, this.onPressed});
+  ActionItem(
+      {@required this.child,
+      this.label,
+      this.icon = Icons.edit,
+      @required this.onPressed});
 
   final Widget child;
+  final String label;
   final IconData icon;
   final void Function() onPressed;
 
@@ -24,11 +29,12 @@ class ActionItem extends StatelessWidget {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
+        if (label != null) Text('$label: '),
         child,
         ActionButton(
           icon: icon,
           onPressed: onPressed,
-        )
+        ),
       ],
     );
   }

@@ -16,7 +16,7 @@ import '../../services/backend_service.dart';
 import '../../services/project_service.dart';
 import '../app_routes.dart';
 import '../widgets/snapshot_widget.dart';
-import 'projects_list.dart';
+import 'project_tile.dart';
 
 class ProjectsScreen extends StatefulWidget {
   @override
@@ -45,9 +45,15 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       drawer: AppDrawer(),
       body: FutureBuilder(
         future: projects,
-        builder: (context, snapshot) => SnapshotWidget(
+        builder: (context, snapshot) => SnapshotWidget<List<Project>>(
           snapshot,
-          builder: (context, list) => ProjectsList(list),
+          builder: (context, projects) => GridView.extent(
+            maxCrossAxisExtent: 400,
+            childAspectRatio: 3,
+            children: projects
+                .map((project) => ProjectTile(project))
+                .toList(growable: false),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

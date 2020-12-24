@@ -49,11 +49,10 @@ class _PackagesScreenState extends State<PackagesScreen> {
                       final package = list[index];
 
                       return ListTile(
-                        leading: Icon(Icons.folder),
+                        leading: Icon(Icons.extension),
                         title: Text(package.title),
                         subtitle: Text(package.vendor ?? '(Vendor unknown)'),
-                        onTap: () => Navigator.popAndPushNamed(
-                            context, packageRoute,
+                        onTap: () => Navigator.pushNamed(context, packageRoute,
                             arguments: package.id),
                       );
                     },

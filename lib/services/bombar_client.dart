@@ -12,7 +12,6 @@ import 'dart:developer';
 
 import 'package:bom_bar_ui/model/package.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:flutter/foundation.dart';
 
 import '../model/dependency.dart';
@@ -33,7 +32,7 @@ class BomBarClient {
     Approval.noPackage: 'not_a_package',
   };
 
-  final _dio = Dio()..transformer = FlutterTransformer();
+  final _dio = Dio();
 
   BomBarClient() {
     if (kDebugMode) {
@@ -88,7 +87,7 @@ class BomBarClient {
       _dio.deleteUri(projectsUrl.resolve('$projectId/exempt/$id'));
 
   Future<List<Package>> findPackagesById({String filter}) async {
-    final response = await _dio.getUri(packagesUrl.resolve('?id=$filter'));
+    final response = await _dio.getUri(packagesUrl.resolve('?q=$filter'));
     return toPackageList(response.data['results']);
   }
 

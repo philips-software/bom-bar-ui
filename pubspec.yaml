@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
   provider: ^4.3.2+3
   dio: ^3.0.10
-  dio_flutter_transformer: ^3.0.2
   http: ^0.12.2
   badges: ^1.1.6
   intl: ^0.16.1

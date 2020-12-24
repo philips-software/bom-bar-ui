@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 import '../../services/dependency_service.dart';
 import '../../services/project_service.dart';
 import '../dependency/dependency_view.dart';
+import 'dependencies_card.dart';
 import 'info_card.dart';
-import 'packages_card.dart';
 
 class ProjectScreen extends StatelessWidget {
   ProjectScreen();
@@ -61,7 +61,7 @@ class ProjectScreen extends StatelessWidget {
                     children: [
                       if (service.current.dependencies.isNotEmpty)
                         Flexible(
-                          child: PackagesCard(
+                          child: DependenciesCard(
                             service.current.dependencies,
                             onSelect: (d) {
                               dependencyService.select(d.id).then((_) {

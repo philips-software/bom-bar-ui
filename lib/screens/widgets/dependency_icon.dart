@@ -13,22 +13,21 @@ import 'package:flutter/material.dart';
 
 import '../../model/dependency.dart';
 
-class RelationWidget extends StatelessWidget {
-  RelationWidget(this.dependency);
+class DependencyIcon extends StatelessWidget {
+  DependencyIcon(this.dependency);
 
   final Dependency dependency;
 
   @override
   Widget build(BuildContext context) {
-    final totalIssues = dependency.totalIssues;
     return Tooltip(
-      message: dependency.relation?.replaceAll('_', ' ') ?? 'Package',
+      message: dependency.relation?.replaceAll('_', ' ') ?? 'Dependency',
       child: Badge(
         badgeContent: Text(
-          totalIssues.toString(),
+          dependency.totalIssues.toString(),
           style: TextStyle(color: Colors.white),
         ),
-        showBadge: totalIssues > 0,
+        showBadge: dependency.totalIssues > 0,
         child: _iconFor(dependency.relation),
       ),
     );
@@ -36,7 +35,9 @@ class RelationWidget extends StatelessWidget {
 
   Icon _iconFor(String relation) {
     return Icon(_relationIcon[relation] ??
-        ((dependency.id != null) ? Icons.folder : Icons.folder_open_outlined));
+        ((dependency.purl != null)
+            ? Icons.extension
+            : Icons.extension_outlined));
   }
 }
 

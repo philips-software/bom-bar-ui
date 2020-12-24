@@ -7,6 +7,7 @@
  *
  * All Rights Reserved
  */
+import 'package:bom_bar_ui/screens/widgets/project_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -35,7 +36,7 @@ class InfoCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: Icon(Icons.info),
+            leading: ProjectIcon(project),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,18 +53,26 @@ class InfoCard extends StatelessWidget {
                     style: TextStyle(color: Colors.red),
                   ),
                 ActionItem(
-                  child: Text('UUID: ${project.id}'),
+                  label: 'UUID',
+                  child: Text(project.id),
                   icon: Icons.copy,
                   onPressed: () =>
                       Clipboard.setData(new ClipboardData(text: project.id)),
                 ),
-                ActionItem(
-                  child: Text('Phase: ${project.phase.name}'),
-                  onPressed: () => _editPhase(context),
-                ),
-                ActionItem(
-                  child: Text('Distribution: ${project.distribution.name}'),
-                  onPressed: () => _editDistribution(context),
+                Wrap(
+                  spacing: 12.0,
+                  children: [
+                    ActionItem(
+                      label: 'Distribution',
+                      child: Text(project.distribution.name),
+                      onPressed: () => _editDistribution(context),
+                    ),
+                    ActionItem(
+                      label: 'Phase',
+                      child: Text(project.phase.name),
+                      onPressed: () => _editPhase(context),
+                    ),
+                  ],
                 ),
                 Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -72,7 +81,7 @@ class InfoCard extends StatelessWidget {
                       Text(
                           'Last update: ${dateFormat.format(project.lastUpdate.toLocal())}')
                     else
-                      Text('(No bill-of-materials imported yet)'),
+                      Text('(No bill-of-materials imported)'),
                     if (kIsWeb) UploadWidget(),
                   ],
                 )

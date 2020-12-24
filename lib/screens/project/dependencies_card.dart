@@ -15,17 +15,17 @@ import '../../model/dependency.dart';
 import '../widgets/dependency_tile.dart';
 import 'filter_field.dart';
 
-class PackagesCard extends StatefulWidget {
-  PackagesCard(this.dependencies, {this.onSelect});
+class DependenciesCard extends StatefulWidget {
+  DependenciesCard(this.dependencies, {this.onSelect});
 
   final List<Dependency> dependencies;
   final Function(Dependency dependency) onSelect;
 
   @override
-  _PackagesCardState createState() => _PackagesCardState();
+  _DependenciesCardState createState() => _DependenciesCardState();
 }
 
-class _PackagesCardState extends State<PackagesCard> {
+class _DependenciesCardState extends State<DependenciesCard> {
   String _filter = '';
   bool _onlyErrors = false;
 
@@ -35,7 +35,7 @@ class _PackagesCardState extends State<PackagesCard> {
         .where((dep) => dep.title.toLowerCase().contains(_filter))
         .where((dep) => !_onlyErrors || dep.issueCount > 0)
         .toList(growable: false);
-    final packageCount = (filtered.length != widget.dependencies.length)
+    final dependencyCount = (filtered.length != widget.dependencies.length)
         ? '${filtered.length}/${widget.dependencies.length}'
         : widget.dependencies.length.toString();
 
@@ -45,7 +45,13 @@ class _PackagesCardState extends State<PackagesCard> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ListTile(title: Text('Packages ($packageCount)')),
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0, top: 8.0),
+            child: Text(
+              'Dependencies ($dependencyCount)',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
           FilterField(onChanged: _onFilterChange),
           Flexible(
             child: ListView(

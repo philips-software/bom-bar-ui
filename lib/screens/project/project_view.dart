@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 
 import '../../model/dependency.dart';
 import '../../services/project_service.dart';
+import 'dependencies_card.dart';
 import 'info_card.dart';
-import 'packages_card.dart';
 
 class ProjectView extends StatelessWidget {
   ProjectView({this.onSelect});
@@ -29,7 +29,7 @@ class ProjectView extends StatelessWidget {
         children: [
           InfoCard(service.current),
           if (service.current.dependencies.isNotEmpty)
-            PackagesCard(
+            DependenciesCard(
               service.current.dependencies,
               onSelect: onSelect,
             ),

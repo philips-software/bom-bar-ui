@@ -10,7 +10,7 @@
 import 'package:flutter/material.dart';
 
 import '../../model/dependency.dart';
-import 'relation_widget.dart';
+import 'dependency_icon.dart';
 
 class DependencyTile extends StatelessWidget {
   DependencyTile(this.dep, {this.onSelect});
@@ -25,7 +25,7 @@ class DependencyTile extends StatelessWidget {
     return ListTile(
       key: ValueKey(dep.id),
       dense: true,
-      leading: RelationWidget(dep),
+      leading: DependencyIcon(dep),
       title: Text('${dep.title} - ${dep.version}'),
       subtitle: dep.license.isNotEmpty
           ? Text('License: ${dep.license}')

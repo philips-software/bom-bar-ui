@@ -29,34 +29,27 @@ class _FilterFieldState extends State<FilterField> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: TextField(
-                  controller: _controller,
-                  onChanged: (value) => widget.onChanged(value, _onlyErrors),
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    hintText: 'Filter',
-                  ),
-                ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: 'Filter',
+              suffix: IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: () {
+                  _controller.clear();
+                  widget.onChanged('', _onlyErrors);
+                },
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: () {
-                _controller.clear();
-                widget.onChanged('', _onlyErrors);
-              },
-            )
-          ],
+            onChanged: (value) => widget.onChanged(value, _onlyErrors),
+          ),
         ),
         SwitchListTile(
           value: _onlyErrors,
-          title: Text('Show only errors'),
+          title: Text('Violations only'),
           onChanged: (value) => setState(() {
             _onlyErrors = value;
             widget.onChanged(_controller.text, value);

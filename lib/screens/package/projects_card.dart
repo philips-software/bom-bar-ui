@@ -8,6 +8,7 @@
  * All Rights Reserved
  */
 
+import 'package:bom_bar_ui/screens/widgets/project_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/package.dart';
@@ -35,10 +36,11 @@ class ProjectsCard extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final project = package.projects[index];
                 return ListTile(
-                  leading: Icon(Icons.home),
+                  leading: ProjectIcon(project),
                   title: Text(project.title),
                   subtitle: Text(project.dependencies
-                      .map((dep) => '${dep.title} ${dep.version}')
+                      .map((dep) =>
+                          '${dep.title} ${dep.version} (${dep.license})')
                       .join(", ")),
                   onTap: () => Navigator.pushNamed(
                     context,

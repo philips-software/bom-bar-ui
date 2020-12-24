@@ -26,7 +26,7 @@ class InfoCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: Icon(Icons.info),
+            leading: Icon(Icons.extension),
             title: Text(package.title,
                 style: Theme.of(context).textTheme.headline4),
             subtitle: Text(package.vendor ?? '(Vendor unknown)'),

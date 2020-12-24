@@ -32,13 +32,13 @@ class AppDrawer extends StatelessWidget {
               context, projectsRoute, (route) => false),
         ),
         ListTile(
-          leading: Icon(Icons.folder),
+          leading: Icon(Icons.extension),
           title: Text('Packages'),
           onTap: () => Navigator.pushNamedAndRemoveUntil(
               context, packagesRoute, (route) => false),
         ),
         AboutListTile(
-          icon: Icon(Icons.info),
+          icon: Icon(Icons.info_outlined),
           applicationName: 'BOM-bar',
           applicationLegalese: 'All rights reserved',
         )

@@ -7,7 +7,6 @@
  *
  * All Rights Reserved
  */
-import 'package:badges/badges.dart';
 import 'package:bom_bar_ui/model/dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +30,8 @@ class _DependencyViewState extends State<DependencyView>
         DependenciesCard(dependency.dependencies),
     (Dependency _) => Text('Dependency of'): (Dependency dependency) =>
         DependenciesCard(dependency.usages),
-    (Dependency dependency) => Badge(
-              child: Text('Issues'),
-              badgeContent: Text(dependency.issueCount.toString()),
-              showBadge: dependency.issueCount != 0,
-            ):
-        (Dependency dependency) =>
-            SingleChildScrollView(child: IssuesCard(dependency)),
+    (Dependency dependency) => Text('Violations'): (Dependency dependency) =>
+        SingleChildScrollView(child: IssuesCard(dependency)),
   };
 
   @override
