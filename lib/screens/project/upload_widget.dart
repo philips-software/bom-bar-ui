@@ -45,6 +45,8 @@ class _UploadWidgetState extends State<UploadWidget> {
   void _onPressed(BuildContext context) {
     final service = ProjectService.of(context);
 
+    // Cannot indicate "loading" state because service does no complete on
+    // pressing Cancel in the dialog.
     nextState = _Status.IDLE;
     service.uploadSpdx().then((_) {
       nextState = _Status.DONE;

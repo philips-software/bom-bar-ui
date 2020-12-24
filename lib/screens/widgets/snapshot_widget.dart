@@ -27,7 +27,7 @@ class SnapshotWidget<T> extends StatelessWidget {
     }
     if (!snapshot.hasData) {
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator.adaptive(),
       );
     }
     return builder(context, snapshot.data);

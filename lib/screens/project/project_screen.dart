@@ -45,7 +45,7 @@ class ProjectScreen extends StatelessWidget {
             return ErrorWidget(service.error);
           }
           if (service.current == null) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator.adaptive());
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
