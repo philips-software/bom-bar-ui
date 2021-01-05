@@ -82,7 +82,7 @@ class InfoCard extends StatelessWidget {
                           'Last update: ${dateFormat.format(project.lastUpdate.toLocal())}')
                     else
                       Text('(No bill-of-materials imported)'),
-                    if (kIsWeb) UploadWidget(),
+                    if (kIsWeb) UploadWidget(key: ObjectKey(project)),
                   ],
                 )
               ],

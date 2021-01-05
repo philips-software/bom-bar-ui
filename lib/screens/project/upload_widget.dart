@@ -14,7 +14,7 @@ import '../../services/project_service.dart';
 import '../widgets/action_button.dart';
 
 class UploadWidget extends StatefulWidget {
-  UploadWidget({this.onUpdated});
+  UploadWidget({Key key, this.onUpdated}) : super(key: key);
 
   final Function() onUpdated;
 

@@ -84,9 +84,11 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
 
 Package toPackage(Map<String, Object> map) => Package(
       id: map['id'] ?? '?',
+      reference: toUrl(map['reference']),
       title: map['name'] ?? '?',
       vendor: map['vendor'],
       homepage: toUrl(map['homepage']),
+      description: map['description'],
       approval: toApproval(map['approval'] ?? '?'),
       exemptions: toStringList(map['exemptions'] ?? []),
       projects: toProjectList(map['projects'] ?? []),

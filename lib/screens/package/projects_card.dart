@@ -25,10 +25,13 @@ class ProjectsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Used in projects (${package.projects.length})',
-            textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.headline6,
+          Padding(
+            padding: const EdgeInsets.only(top: 4, left: 8),
+            child: Text(
+              'Used in projects (${package.projects.length})',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
           Expanded(
             child: ListView.builder(

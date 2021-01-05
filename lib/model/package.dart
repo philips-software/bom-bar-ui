@@ -13,18 +13,22 @@ import 'project.dart';
 class Package {
   Package({
     this.id,
+    this.reference,
     this.title,
     this.vendor,
     this.homepage,
+    this.description,
     this.approval = Approval.context,
     this.exemptions,
     this.projects,
   });
 
   final String id;
+  final Uri reference;
   final String title;
   final String vendor;
   final Uri homepage;
+  final String description;
   Approval approval;
   final List<String> exemptions;
   final List<Project> projects;

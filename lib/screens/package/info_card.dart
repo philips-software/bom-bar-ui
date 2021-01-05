@@ -10,6 +10,7 @@
 
 import 'package:bom_bar_ui/model/package.dart';
 import 'package:bom_bar_ui/screens/package/approval_tile.dart';
+import 'package:bom_bar_ui/screens/widgets/action_link.dart';
 import 'package:bom_bar_ui/screens/widgets/edit_text_dialog.dart';
 import 'package:bom_bar_ui/screens/widgets/shared.dart';
 import 'package:bom_bar_ui/services/package_service.dart';
@@ -29,7 +30,30 @@ class InfoCard extends StatelessWidget {
             leading: Icon(Icons.extension),
             title: Text(package.title,
                 style: Theme.of(context).textTheme.headline4),
-            subtitle: Text(package.vendor ?? '(Vendor unknown)'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'pkg:${package.reference}',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+                SizedBox(height: 8),
+                Text(package.vendor ?? '(Vendor unknown)'),
+                if (package.homepage != null)
+                  ActionLink(
+                    child: Text('Home page:'),
+                    url: package.homepage,
+                  ),
+                if (package.description != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      package.description,
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+              ],
+            ),
           ),
           ApprovalTile(package),
           ButtonBar(
