@@ -40,7 +40,8 @@ class AppDrawer extends StatelessWidget {
         AboutListTile(
           icon: Icon(Icons.info_outlined),
           applicationName: 'BOM-bar',
-          applicationLegalese: 'All rights reserved',
+          applicationLegalese:
+              'Copyright Koninklijke Philips N.V.\nLicense: MIT',
         )
       ],
     ));

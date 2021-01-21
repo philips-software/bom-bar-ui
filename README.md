@@ -12,7 +12,7 @@ This user interface requires the BOM-bar service to be running.
 
 ## Installation
 
-...
+(Empty)
 
 ## Configuration
 
@@ -20,9 +20,7 @@ This user interface requires the BOM-bar service to be running.
 
 ## Usage
 
-Show users how to use the software.
-Be specific.
-Use appropriate formatting when showing code snippets.
+(Empty)
 
 ## How to test the software
 
