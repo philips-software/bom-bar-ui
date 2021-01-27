@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bom_bar_ui/model/package.dart';
@@ -16,7 +17,7 @@ import 'model_adapters.dart';
 
 class BomBarClient {
   static final baseUrl =
-      Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:8081', '/');
+      Uri.http(kIsWeb && !kDebugMode ? '' : 'localhost:9090', '/');
   static final projectsUrl = baseUrl.resolve('projects/');
   static final packagesUrl = baseUrl.resolve('packages/');
   static final _approvals = {
@@ -80,6 +81,18 @@ class BomBarClient {
 
   Future<void> unexempt(String projectId, String id) =>
       _dio.deleteUri(projectsUrl.resolve('$projectId/exempt/$id'));
+
+  Future<Map<String, int>> getLicenseDistribution(String projectId) async {
+    final response = await _dio.getUri<Map<String, dynamic>>(
+        projectsUrl.resolve('$projectId/licenses'));
+    final licenses = response.data.entries.toList(growable: false)
+      ..sort((l, r) => -(l.value as int).compareTo(r.value));
+    return Map.fromIterable(
+      licenses,
+      key: (e) => e.key,
+      value: (e) => e.value as int,
+    );
+  }
 
   Future<List<Package>> findPackagesById({String filter}) async {
     final response = await _dio.getUri(packagesUrl.resolve('?q=$filter'));

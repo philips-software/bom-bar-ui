@@ -54,6 +54,9 @@ class ProjectService extends ChangeNotifier {
         select(_current.id);
       });
 
+  Future<Map<String, int>> licenseDistribution() =>
+      _execute(() => _client.getLicenseDistribution(_current.id));
+
   Future<T> _execute<T>(Future<T> Function() func) async {
     try {
       error = null;

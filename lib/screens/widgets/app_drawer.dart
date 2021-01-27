@@ -41,7 +41,7 @@ class AppDrawer extends StatelessWidget {
           icon: Icon(Icons.info_outlined),
           applicationName: 'BOM-bar',
           applicationLegalese:
-              'Copyright Koninklijke Philips N.V.\nLicense: MIT',
+              'Copyright © Koninklijke Philips N.V.\nLicense: MIT',
         )
       ],
     ));

@@ -5,6 +5,7 @@
 
 import 'dart:developer';
 
+import 'package:bom_bar_ui/screens/licenses/licenses_screen.dart';
 import 'package:bom_bar_ui/screens/package/package_screen.dart';
 import 'package:bom_bar_ui/services/package_service.dart';
 import 'package:bom_bar_ui/services/project_service.dart';
@@ -20,6 +21,7 @@ const projectRoute = '/project';
 const packagesRoute = '/packages';
 const packageRoute = '/package';
 const dependencyRoute = '/dependency';
+const licensesRoute = '/licenses';
 
 abstract class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -40,6 +42,8 @@ abstract class AppRoutes {
         return ProjectScreen();
       case dependencyRoute:
         return DependencyScreen();
+      case licensesRoute:
+        return LicensesScreen();
       case packageRoute:
         PackageService.of(context).select(settings.arguments);
         return PackageScreen();

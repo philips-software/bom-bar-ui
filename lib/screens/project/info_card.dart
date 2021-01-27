@@ -2,6 +2,7 @@
  * Copyright (c) 2020-2021, Koninklijke Philips N.V., https://www.philips.com
  * SPDX-License-Identifier: MIT
  */
+import 'package:bom_bar_ui/screens/widgets/action_button.dart';
 import 'package:bom_bar_ui/screens/widgets/project_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:intl/intl.dart';
 
 import '../../model/project.dart';
 import '../../services/project_service.dart';
+import '../app_routes.dart';
 import '../widgets/action_item.dart';
 import '../widgets/edit_selection_dialog.dart';
 import '../widgets/edit_text_dialog.dart';
@@ -31,58 +33,61 @@ class InfoCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            leading: ProjectIcon(project),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ActionItem(
-                  child: Text(
-                    project.title.isNotEmpty ? project.title : '(Untitled)',
-                    style: style.headline4,
-                  ),
-                  onPressed: () => _editTitle(context),
-                ),
-                if (project.issueCount > 0)
-                  Text(
-                    '${project.issueCount} license errors',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ActionItem(
-                  label: 'UUID',
-                  child: Text(project.id),
-                  icon: Icons.copy,
-                  onPressed: () =>
-                      Clipboard.setData(new ClipboardData(text: project.id)),
-                ),
-                Wrap(
-                  spacing: 12.0,
-                  children: [
-                    ActionItem(
-                      label: 'Distribution',
-                      child: Text(project.distribution.name),
-                      onPressed: () => _editDistribution(context),
+              leading: ProjectIcon(project),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ActionItem(
+                    child: Text(
+                      project.title.isNotEmpty ? project.title : '(Untitled)',
+                      style: style.headline4,
                     ),
-                    ActionItem(
-                      label: 'Phase',
-                      child: Text(project.phase.name),
-                      onPressed: () => _editPhase(context),
+                    onPressed: () => _editTitle(context),
+                  ),
+                  if (project.issueCount > 0)
+                    Text(
+                      '${project.issueCount} license errors',
+                      style: TextStyle(color: Colors.red),
                     ),
-                  ],
-                ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    if (project.lastUpdate != null)
-                      Text(
-                          'Last update: ${dateFormat.format(project.lastUpdate.toLocal())}')
-                    else
-                      Text('(No bill-of-materials imported)'),
-                    if (kIsWeb) UploadWidget(key: ObjectKey(project)),
-                  ],
-                )
-              ],
-            ),
-          ),
+                  ActionItem(
+                    label: 'UUID',
+                    child: Text(project.id),
+                    icon: Icons.copy,
+                    onPressed: () =>
+                        Clipboard.setData(new ClipboardData(text: project.id)),
+                  ),
+                  Wrap(
+                    spacing: 12.0,
+                    children: [
+                      ActionItem(
+                        label: 'Distribution',
+                        child: Text(project.distribution.name),
+                        onPressed: () => _editDistribution(context),
+                      ),
+                      ActionItem(
+                        label: 'Phase',
+                        child: Text(project.phase.name),
+                        onPressed: () => _editPhase(context),
+                      ),
+                    ],
+                  ),
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      if (project.lastUpdate != null)
+                        Text(
+                            'Last update: ${dateFormat.format(project.lastUpdate.toLocal())}')
+                      else
+                        Text('(No bill-of-materials imported)'),
+                      if (kIsWeb) UploadWidget(key: ObjectKey(project)),
+                    ],
+                  )
+                ],
+              ),
+              trailing: ActionButton(
+                icon: Icons.pie_chart,
+                onPressed: () => Navigator.of(context).pushNamed(licensesRoute),
+              )),
         ],
       ),
     );
