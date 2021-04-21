@@ -69,6 +69,7 @@ Dependency toDependency(Map<String, Object> map) => Dependency(
       version: map['version'] ?? '?',
       license: map['license'] ?? '?',
       relation: map['relation'],
+      source: map['source'] ?? false,
       issueCount: map['issues'] ?? 0,
       licenseIssues: toStringList(map['license_issues'] ?? []),
       dependencies: toDependencyList(map['dependencies'] ?? []),

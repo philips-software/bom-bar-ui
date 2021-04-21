@@ -37,7 +37,7 @@ class DependencyIcon extends StatelessWidget {
 }
 
 const _relationIcon = <String, IconData>{
-  'unrelated': Icons.language,
+  'irrelevant': Icons.cancel_outlined,
   'independent': Icons.shopping_bag,
   'dynamic_link': Icons.link,
   'static_link': Icons.code,

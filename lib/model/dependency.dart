@@ -13,6 +13,7 @@ class Dependency {
     this.version,
     this.license,
     this.relation,
+    this.source,
     this.issueCount = 0,
     this.licenseIssues = const [],
     this.dependencies = const [],
@@ -27,6 +28,7 @@ class Dependency {
   final String version;
   final String license;
   final String relation;
+  final bool source;
   final int issueCount;
   final List<String> licenseIssues;
   final List<Dependency> dependencies;
