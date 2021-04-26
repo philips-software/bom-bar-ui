@@ -1,8 +1,13 @@
 # BOM-bar UI
 
-**Description**: Web user interface for the [BOM-bar project](https://github.com/philips-labs/bom-bar).
+:rocket: _The code of this repo has been moved to
+the [BOM-Bar project](https://github.com/philips-software/bom-bar) and will no
+longer be maintained_.
 
-This web application is developed using Flutter in the Dart programming language.
+**Description**: Web user interface for BOM-Bar.
+
+This web application is developed using Flutter in the Dart programming
+language.
 
 **Status**:  Research prototype
 
